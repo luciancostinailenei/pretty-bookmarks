@@ -1,25 +1,25 @@
-import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import { ChakraProvider, useBoolean } from "@chakra-ui/react";
+import cn from "classnames";
+
+import { ThemeToggle } from "./components";
 
 function App() {
+  const isBrowserDarkModeOn = window.matchMedia(
+    "(prefers-color-scheme:dark)"
+  ).matches;
+  console.log(isBrowserDarkModeOn);
+  const [isDarkModeOn, setDarkMode] = useBoolean(isBrowserDarkModeOn);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ChakraProvider>
+      <main className={cn("main", isDarkModeOn ? "main--dark" : "main--light")}>
+        <ThemeToggle
+          isDarkModeOn={isDarkModeOn}
+          toggleDarkMode={setDarkMode.toggle}
+        />
+      </main>
+    </ChakraProvider>
   );
 }
 
