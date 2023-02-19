@@ -46,6 +46,7 @@
     ]
   },
   "devDependencies": {
+    "@types/chrome": "^0.0.216",
     "cross-env": "^7.0.3"
   }
 }

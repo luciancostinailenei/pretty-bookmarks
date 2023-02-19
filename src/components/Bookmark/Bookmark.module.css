@@ -1,0 +1,29 @@
+/* 
+* BOOKMARK
+*/
+
+.bookmark {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 10px;
+
+  border-radius: 3px;
+}
+
+.bookmark--light {
+  background-color: #fefefe;
+}
+
+.bookmark--dark {
+  background-color: #1c1c1e;
+}
+
+/*
+* CONTENT
+*/
+
+.content {
+  display: flex;
+  flex-direction: column;
+}

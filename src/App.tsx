@@ -1,24 +1,29 @@
-import "./App.css";
 import { ChakraProvider, useBoolean } from "@chakra-ui/react";
 import cn from "classnames";
 
-import { ThemeToggle } from "./components";
+import "./App.css";
+
+import { BookmarkList, ThemeToggle } from "./components";
+import { DarkModeContext } from "./shared";
 
 function App() {
   const isBrowserDarkModeOn = window.matchMedia(
     "(prefers-color-scheme:dark)"
   ).matches;
-  console.log(isBrowserDarkModeOn);
   const [isDarkModeOn, setDarkMode] = useBoolean(isBrowserDarkModeOn);
 
   return (
     <ChakraProvider>
-      <main className={cn("main", isDarkModeOn ? "main--dark" : "main--light")}>
-        <ThemeToggle
-          isDarkModeOn={isDarkModeOn}
-          toggleDarkMode={setDarkMode.toggle}
-        />
-      </main>
+      <DarkModeContext.Provider
+        value={{ isDarkModeOn, toggleDarkMode: setDarkMode.toggle }}
+      >
+        <main
+          className={cn("main", isDarkModeOn ? "main--dark" : "main--light")}
+        >
+          <ThemeToggle />
+          <BookmarkList />
+        </main>
+      </DarkModeContext.Provider>
     </ChakraProvider>
   );
 }

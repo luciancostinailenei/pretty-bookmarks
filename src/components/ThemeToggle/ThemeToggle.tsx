@@ -1,8 +1,13 @@
 import { Switch, Text } from "@chakra-ui/react";
+import { useContext } from "react";
+
+import { DarkModeContext } from "../../shared";
 
 import styles from "./ThemeToggle.module.css";
 
-const ThemeToggle = ({ isDarkModeOn, toggleDarkMode }: ThemeToggleProps) => {
+const ThemeToggle = () => {
+  const { isDarkModeOn, toggleDarkMode } = useContext(DarkModeContext);
+
   return (
     <div className={styles.themeToggle}>
       <Text fontSize="xs" pr="5px">
@@ -19,11 +24,6 @@ const ThemeToggle = ({ isDarkModeOn, toggleDarkMode }: ThemeToggleProps) => {
       />
     </div>
   );
-};
-
-type ThemeToggleProps = {
-  isDarkModeOn: boolean;
-  toggleDarkMode: () => void;
 };
 
 export default ThemeToggle;
