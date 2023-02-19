@@ -1,12 +1,9 @@
-import { Switch, Text } from "@chakra-ui/react";
-import { useContext } from "react";
-
-import { DarkModeContext } from "../../shared";
+import { Switch, Text, useColorMode } from "@chakra-ui/react";
 
 import styles from "./ThemeToggle.module.css";
 
 const ThemeToggle = () => {
-  const { isDarkModeOn, toggleDarkMode } = useContext(DarkModeContext);
+  const { colorMode, toggleColorMode } = useColorMode();
 
   return (
     <div className={styles.themeToggle}>
@@ -15,11 +12,11 @@ const ThemeToggle = () => {
       </Text>
 
       <Switch
-        onChange={toggleDarkMode}
+        onChange={toggleColorMode}
         id="theme-toggle"
         size="sm"
         colorScheme="gray"
-        isChecked={isDarkModeOn}
+        isChecked={colorMode === "dark"}
         pr="5px"
       />
     </div>
