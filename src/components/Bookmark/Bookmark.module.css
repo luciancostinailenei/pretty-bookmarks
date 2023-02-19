@@ -9,6 +9,8 @@
   padding: 10px;
 
   border-radius: 3px;
+
+  word-break: break-word;
 }
 
 .bookmark--light {
@@ -16,7 +18,7 @@
 }
 
 .bookmark--dark {
-  background-color: #1c1c1e;
+  background-color: rgb(39 40 42);
 }
 
 /*

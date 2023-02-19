@@ -14,13 +14,13 @@ body {
 }
 
 .main--dark {
-  background-color: #0e0e10;
+  background-color: #333;
   color: #fff;
 }
 
 .main--light {
   background-color: #f3f5f9;
-  color: #000;
+  color: #0055c0;
 }
 
 /* MAIN-END  */

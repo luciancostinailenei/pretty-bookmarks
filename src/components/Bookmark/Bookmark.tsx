@@ -27,7 +27,9 @@ const Bookmark = ({ title, url }: BookmarkProps) => {
         <Text fontSize="sm" as="b">
           {title}
         </Text>
-        <Text><a href={url}>{url}</a></Text>
+        <Text>
+          <a href={url}>{url}</a>
+        </Text>
       </div>
       {/* <Checkbox></Checkbox> */}
     </div>
