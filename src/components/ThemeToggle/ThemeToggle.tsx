@@ -15,7 +15,7 @@ const ThemeToggle = () => {
         onChange={toggleColorMode}
         id="theme-toggle"
         size="sm"
-        colorScheme="gray"
+        colorScheme="teal"
         isChecked={colorMode === "dark"}
         pr="5px"
       />

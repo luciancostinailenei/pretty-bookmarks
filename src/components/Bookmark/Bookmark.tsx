@@ -17,23 +17,21 @@ const Bookmark = ({ title, url }: BookmarkProps) => {
     <div
       className={cn(
         styles.bookmark,
-        isDarkModeOn
-          ? styles["bookmark--dark"]
-          : styles["bookmark--light"]
+        isDarkModeOn ? styles["bookmark--dark"] : styles["bookmark--light"]
       )}
     >
       <div className={styles.content}>
-        <Text fontSize="sm" as="b">
+        <Text color="teal.400" fontSize="sm" as="b">
           <a href={url}>{title}</a>
         </Text>
 
-        <Text>
+        <Text fontSize="sm">
           <a href={url}>{url}</a>
         </Text>
       </div>
 
       <div className={styles.actions}>
-        <Button colorScheme="gray" ml="5px" size="xs" variant="ghost">
+        <Button colorScheme="teal" ml="5px" size="xs" variant="ghost">
           <DeleteIcon />
         </Button>
       </div>

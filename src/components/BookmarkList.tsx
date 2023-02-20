@@ -1,4 +1,4 @@
-import { Stack, CheckboxGroup } from "@chakra-ui/react";
+import { Stack, CheckboxGroup, Heading } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 
 import Bookmark from "./Bookmark/Bookmark";
@@ -31,12 +31,15 @@ const BookmarkList = () => {
 
   return (
     <>
-      <CheckboxGroup colorScheme="teal" size="lg">
+      <Heading pl="15px" mb="10px" size="sm">
+        Your pretty bookmarks:
+      </Heading>
+      <CheckboxGroup colorScheme="teal">
         <Stack p="2" spacing="2" direction="column">
           {bookmarks &&
             bookmarks.map((bookmark) => {
-              const { title, url } = bookmark;
-              return <Bookmark title={title} url={url} />;
+              const { title, url, id } = bookmark;
+              return <Bookmark title={title} url={url} key={id} />;
             })}
         </Stack>
       </CheckboxGroup>

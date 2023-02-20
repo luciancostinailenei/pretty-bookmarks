@@ -10,17 +10,14 @@ body {
 .main {
   min-height: 500px;
   width: 500px;
-  color: #fff;
 }
 
 .main--dark {
   background-color: #333;
-  color: #fff;
 }
 
 .main--light {
   background-color: #f3f5f9;
-  color: #0055c0;
 }
 
 /* MAIN-END  */
