@@ -26,11 +26,15 @@ const Bookmark = ({ title, url, id, removeBookmark }: BookmarkProps) => {
     >
       <div className={styles.content}>
         <Text color="teal.400" fontSize="sm" as="b">
-          <a href={url}>{title}</a>
+          <a href={url} rel="noreferrer" target="_blank">
+            {title}
+          </a>
         </Text>
 
         <Text fontSize="sm">
-          <a href={url}>{url}</a>
+          <a href={url} rel="noreferrer" target="_blank">
+            {url}
+          </a>
         </Text>
       </div>
 
