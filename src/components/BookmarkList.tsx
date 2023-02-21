@@ -1,62 +1,55 @@
-import { Stack, CheckboxGroup, Heading } from "@chakra-ui/react";
+import { Text, Stack, CheckboxGroup } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 
 import Bookmark from "./Bookmark/Bookmark";
 
-const BookmarkList = () => {
-  const [bookmarks, setBookmarks] = useState<
+type BookmarkListProps = {
+  bookmarks: chrome.bookmarks.BookmarkTreeNode[];
+};
+
+const BookmarkList = ({ bookmarks }: BookmarkListProps) => {
+  const [bookmarkList, setBookmarkList] = useState<
     chrome.bookmarks.BookmarkTreeNode[]
   >([]);
 
   useEffect(() => {
-    const fetchBookmarksAndAttachToState = async (): Promise<void> => {
-      const bookmarksTree = await chrome.bookmarks.getTree();
-      const bookmarksTreeNodes = bookmarksTree[0].children;
-      const mobileBookmarksTreeNode = bookmarksTreeNodes?.find(
-        (c) => c.title === "Mobile bookmarks"
-      );
-      const bookmarks = mobileBookmarksTreeNode?.children || [];
-
-      let sortedBookmarks: chrome.bookmarks.BookmarkTreeNode[] = [];
-      if (bookmarks.length) {
-        // @ts-ignore: Unreachable code error
-        sortedBookmarks = bookmarks.sort((a, b) => b.dateAdded - a.dateAdded);
-      }
-
-      setBookmarks(sortedBookmarks);
-    };
-
-    fetchBookmarksAndAttachToState();
-  }, []);
+    setBookmarkList(bookmarks);
+  }, [bookmarks]);
 
   const removeBookmark = (bookmarkId: string) => {
     const filteredBookmarms = bookmarks.filter((b) => b.id !== bookmarkId);
-    setBookmarks(filteredBookmarms);
+    setBookmarkList(filteredBookmarms);
+  };
+
+  const BookmarkListContent = () => {
+    if (bookmarkList.length > 0) {
+      return (
+        <>
+          {bookmarkList.map((bookmark) => {
+            const { title, url, id } = bookmark;
+            return (
+              <Bookmark
+                title={title}
+                url={url}
+                id={id}
+                removeBookmark={removeBookmark}
+                key={id}
+              />
+            );
+          })}
+        </>
+      );
+    }
+
+    return <Text fontSize="sm">No bookmarks saved in this folder.</Text>;
   };
 
   return (
-    <>
-      <Heading pl="15px" mb="10px" size="sm">
-        Your pretty bookmarks:
-      </Heading>
-      <CheckboxGroup colorScheme="teal">
-        <Stack p="2" spacing="2" direction="column">
-          {bookmarks &&
-            bookmarks.map((bookmark) => {
-              const { title, url, id } = bookmark;
-              return (
-                <Bookmark
-                  title={title}
-                  url={url}
-                  id={id}
-                  removeBookmark={removeBookmark}
-                  key={id}
-                />
-              );
-            })}
-        </Stack>
-      </CheckboxGroup>
-    </>
+    <CheckboxGroup colorScheme="teal">
+      <Stack p="2" spacing="2" direction="column">
+        <BookmarkListContent />
+      </Stack>
+    </CheckboxGroup>
   );
 };
 

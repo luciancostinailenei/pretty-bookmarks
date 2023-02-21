@@ -1,0 +1,11 @@
+.main {
+  min-height: 600px;
+}
+
+.main--dark {
+  background-color: #333;
+}
+
+.main--light {
+  background-color: #f3f5f9;
+}
