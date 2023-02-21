@@ -9,14 +9,14 @@ const BookmarkFolderTabs = () => {
   );
 
   useEffect(() => {
-    const fetchBookmarksAndAttachToState = async (): Promise<void> => {
+    const fetchBookmarksFoldersAndAttachToState = async (): Promise<void> => {
       const bookmarksTree = await chrome.bookmarks.getTree();
       const bookmarksFolders = bookmarksTree[0].children || [];
 
       setFolders(bookmarksFolders);
     };
 
-    fetchBookmarksAndAttachToState();
+    fetchBookmarksFoldersAndAttachToState();
   }, []);
 
   const getSortedBookmarksInsideFolder = (folderId: string) => {
@@ -30,6 +30,11 @@ const BookmarkFolderTabs = () => {
     }
 
     return sortedBookmarks;
+  };
+
+  const getFolderBookmarksCount = (folderId: string) => {
+    const folder = folders.find((f) => f.id === folderId);
+    return folder?.children ? folder.children.length : 0;
   };
 
   return (
@@ -51,7 +56,7 @@ const BookmarkFolderTabs = () => {
             {folders.map(({ title, id }) => (
               <Tab key={id}>
                 <StarIcon mr="5px" />
-                {title}
+                {`${title} (${getFolderBookmarksCount(id)})`}
               </Tab>
             ))}
           </TabList>
