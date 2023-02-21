@@ -29,6 +29,11 @@ const BookmarkList = () => {
     fetchBookmarksAndAttachToState();
   }, []);
 
+  const removeBookmark = (bookmarkId: string) => {
+    const filteredBookmarms = bookmarks.filter((b) => b.id !== bookmarkId);
+    setBookmarks(filteredBookmarms);
+  };
+
   return (
     <>
       <Heading pl="15px" mb="10px" size="sm">
@@ -39,7 +44,15 @@ const BookmarkList = () => {
           {bookmarks &&
             bookmarks.map((bookmark) => {
               const { title, url, id } = bookmark;
-              return <Bookmark title={title} url={url} key={id} />;
+              return (
+                <Bookmark
+                  title={title}
+                  url={url}
+                  id={id}
+                  removeBookmark={removeBookmark}
+                  key={id}
+                />
+              );
             })}
         </Stack>
       </CheckboxGroup>

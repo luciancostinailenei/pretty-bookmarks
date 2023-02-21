@@ -4,14 +4,18 @@ import cn from "classnames";
 
 import styles from "./Bookmark.module.css";
 
-type BookmarkProps = {
-  title: string;
-  url: string | undefined;
-};
+interface BookmarkProps extends chrome.bookmarks.BookmarkTreeNode {
+  removeBookmark: (bookmarkId: string) => void;
+}
 
-const Bookmark = ({ title, url }: BookmarkProps) => {
+const Bookmark = ({ title, url, id, removeBookmark }: BookmarkProps) => {
   const { colorMode } = useColorMode();
   const isDarkModeOn = colorMode === "dark";
+
+  const onPressDelete = async (bookmarkId: string) => {
+    await chrome.bookmarks.remove(bookmarkId);
+    removeBookmark(id);
+  };
 
   return (
     <div
@@ -31,7 +35,13 @@ const Bookmark = ({ title, url }: BookmarkProps) => {
       </div>
 
       <div className={styles.actions}>
-        <Button colorScheme="teal" ml="5px" size="xs" variant="ghost">
+        <Button
+          onClick={() => onPressDelete(id)}
+          colorScheme="teal"
+          ml="5px"
+          size="xs"
+          variant="ghost"
+        >
           <DeleteIcon />
         </Button>
       </div>
