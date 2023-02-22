@@ -1,4 +1,4 @@
-import { Button, Text, useColorMode } from "@chakra-ui/react";
+import { Button, Text, Image, useColorMode } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import cn from "classnames";
 
@@ -24,6 +24,16 @@ const Bookmark = ({ title, url, id, removeBookmark }: BookmarkProps) => {
         isDarkModeOn ? styles["bookmark--dark"] : styles["bookmark--light"]
       )}
     >
+      {url && (
+        <Image
+          boxSize="32px"
+          borderRadius="full"
+          src={`chrome-extension://${
+            chrome.runtime.id
+          }/_favicon/?pageUrl=${encodeURIComponent(url)}&size=32`}
+        ></Image>
+      )}
+
       <div className={styles.content}>
         <Text color="teal.400" fontSize="sm" as="b">
           <a href={url} rel="noreferrer" target="_blank">

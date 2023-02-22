@@ -4,7 +4,6 @@
 
 .bookmark {
   display: flex;
-  justify-content: space-between;
 
   padding: 10px;
 
@@ -30,4 +29,14 @@
 .content {
   display: flex;
   flex-direction: column;
+
+  margin-left: 5px;
+}
+
+/*
+* ACTIONS
+*/
+
+.actions {
+  margin-left: auto;
 }

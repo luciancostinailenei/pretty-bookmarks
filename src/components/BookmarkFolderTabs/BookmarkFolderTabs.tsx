@@ -25,11 +25,11 @@ const BookmarkFolderTabs = () => {
 
       return bookmarksFolders;
     };
-    
+
     const attachFoldersToState = async (): Promise<void> => {
       const sortedFolders = await fetchBookmarksFoldersAndSortByItemsCount();
       setFolders(sortedFolders);
-    }
+    };
 
     attachFoldersToState();
   }, []);

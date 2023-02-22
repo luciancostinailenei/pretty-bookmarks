@@ -7,5 +7,5 @@
     "default_popup": "index.html",
     "default_icon": "logo.png"
   },
-  "permissions": ["bookmarks"]
+  "permissions": ["bookmarks", "favicon"]
 }
