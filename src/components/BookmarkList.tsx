@@ -33,7 +33,7 @@ const BookmarkList = ({ bookmarks }: BookmarkListProps) => {
                 url={url}
                 id={id}
                 removeBookmark={removeBookmark}
-                key={id}
+                key={`bookmark-${id}`}
               />
             );
           })}
