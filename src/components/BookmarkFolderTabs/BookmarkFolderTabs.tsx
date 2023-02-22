@@ -9,14 +9,29 @@ const BookmarkFolderTabs = () => {
   );
 
   useEffect(() => {
-    const fetchBookmarksFoldersAndAttachToState = async (): Promise<void> => {
+    const fetchBookmarksFoldersAndSortByItemsCount = async (): Promise<
+      chrome.bookmarks.BookmarkTreeNode[]
+    > => {
       const bookmarksTree = await chrome.bookmarks.getTree();
       const bookmarksFolders = bookmarksTree[0].children || [];
 
-      setFolders(bookmarksFolders);
-    };
+      bookmarksFolders.sort((a, b) => {
+        if (!a.children) return -1;
+        if (!b.children) return 1;
+        if (!a.children && !b.children) return 0;
 
-    fetchBookmarksFoldersAndAttachToState();
+        return b.children?.length - a.children?.length;
+      });
+
+      return bookmarksFolders;
+    };
+    
+    const attachFoldersToState = async (): Promise<void> => {
+      const sortedFolders = await fetchBookmarksFoldersAndSortByItemsCount();
+      setFolders(sortedFolders);
+    }
+
+    attachFoldersToState();
   }, []);
 
   const getSortedBookmarksInsideFolder = (folderId: string) => {
