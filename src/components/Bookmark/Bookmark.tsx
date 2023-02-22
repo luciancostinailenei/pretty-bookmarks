@@ -26,11 +26,12 @@ const Bookmark = ({ title, url, id, removeBookmark }: BookmarkProps) => {
     >
       {url && (
         <Image
-          boxSize="32px"
+          boxSize="16px"
           borderRadius="full"
+          mt="2px"
           src={`chrome-extension://${
             chrome.runtime.id
-          }/_favicon/?pageUrl=${encodeURIComponent(url)}&size=32`}
+          }/_favicon/?pageUrl=${encodeURIComponent(url)}&size=16`}
         ></Image>
       )}
 
