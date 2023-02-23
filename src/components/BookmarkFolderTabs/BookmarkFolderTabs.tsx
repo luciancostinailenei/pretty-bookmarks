@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Tabs, Tab, TabList, TabPanels, TabPanel, Box } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 
-import BookmarkList from "../BookmarkList";
+import BookmarkList, { BookmarkListType } from "../BookmarkList";
 import BookmarkFoldersContext from "./BookmarkFoldersContext";
 
 const fetchBookmarksFoldersAndSortByItemsCount = async (): Promise<
@@ -63,41 +63,45 @@ const BookmarkFolderTabs = () => {
         refreshFolders: () => fetchFoldersAndAddToState(setFolders),
       }}
     >
-      { folders.length > 0 && 
-      <Tabs size="sm" colorScheme="teal">
-        <>
-          <Box
-            sx={{
-              "&::-webkit-scrollbar": {
-                height: "10px",
-                backgroundColor: `rgba(0, 0, 0, 0.1)`,
-              },
-              "&::-webkit-scrollbar-thumb": {
-                backgroundColor: `rgba(0, 0, 0, 0.1)`,
-              },
-            }}
-            overflow="auto"
-          >
-            <TabList w="max-content">
-              {folders.map(({ title, id }) => (
-                <Tab key={id}>
-                  <StarIcon mr="5px" />
-                  {`${title} (${getFolderBookmarksCount(id)})`}
-                </Tab>
-              ))}
-            </TabList>
-          </Box>
+      {folders.length > 0 && (
+        <Tabs size="sm" colorScheme="teal">
+          <>
+            <Box
+              sx={{
+                "&::-webkit-scrollbar": {
+                  height: "10px",
+                  backgroundColor: `rgba(0, 0, 0, 0.1)`,
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  backgroundColor: `rgba(0, 0, 0, 0.1)`,
+                },
+              }}
+              overflow="auto"
+            >
+              <TabList w="max-content">
+                {folders.map(({ title, id }) => (
+                  <Tab key={id}>
+                    <StarIcon mr="5px" />
+                    {`${title} (${getFolderBookmarksCount(id)})`}
+                  </Tab>
+                ))}
+              </TabList>
+            </Box>
 
-          <TabPanels>
-            {folders.map(({ id }) => (
-              <TabPanel p="5px" key={`tab-${id}`}>
-                <BookmarkList bookmarks={getSortedBookmarksInsideFolder(id)} />
-              </TabPanel>
-            ))}
-          </TabPanels>
-        </>
-      </Tabs>
-}
+            <TabPanels>
+              {folders.map(({ id, title }) => (
+                <TabPanel p="5px" key={`tab-${id}`}>
+                  <BookmarkList
+                    type={BookmarkListType.List}
+                    title={title}
+                    bookmarks={getSortedBookmarksInsideFolder(id)}
+                  />
+                </TabPanel>
+              ))}
+            </TabPanels>
+          </>
+        </Tabs>
+      )}
     </BookmarkFoldersContext.Provider>
   );
 };
