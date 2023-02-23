@@ -63,6 +63,7 @@ const BookmarkFolderTabs = () => {
         refreshFolders: () => fetchFoldersAndAddToState(setFolders),
       }}
     >
+      { folders.length > 0 && 
       <Tabs size="sm" colorScheme="teal">
         <>
           <Box
@@ -89,13 +90,14 @@ const BookmarkFolderTabs = () => {
 
           <TabPanels>
             {folders.map(({ id }) => (
-              <TabPanel p="5px" key={id}>
+              <TabPanel p="5px" key={`tab-${id}`}>
                 <BookmarkList bookmarks={getSortedBookmarksInsideFolder(id)} />
               </TabPanel>
             ))}
           </TabPanels>
         </>
       </Tabs>
+}
     </BookmarkFoldersContext.Provider>
   );
 };

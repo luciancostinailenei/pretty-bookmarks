@@ -8,9 +8,8 @@ type BookmarkListProps = {
 };
 
 const BookmarkList = ({ bookmarks }: BookmarkListProps) => {
-  const [bookmarkList, setBookmarkList] = useState<
-    chrome.bookmarks.BookmarkTreeNode[]
-  >([]);
+  const [bookmarkList, setBookmarkList] =
+    useState<chrome.bookmarks.BookmarkTreeNode[]>(bookmarks);
 
   useEffect(() => {
     setBookmarkList(bookmarks);

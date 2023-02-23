@@ -85,7 +85,7 @@ const Bookmark = ({ title, url, id, removeBookmark }: BookmarkProps) => {
             <MenuGroup title="Move to folder:">
               {folders.map(({ title, id: folderId }) => (
                 <MenuItem
-                  key={`${title}-${id}`}
+                  key={`menu-${title}-${id}`}
                   onClick={() => onChooseFolder(id, folderId)}
                   pl="20px"
                 >
