@@ -34,7 +34,22 @@ const BookmarkList = ({
     useState<chrome.bookmarks.BookmarkTreeNode[]>(bookmarks);
 
   useEffect(() => {
-    setBookmarkList(bookmarks);
+    const foldersToTop = bookmarks
+      .map((bookmark) => {
+        if (bookmark.children) {
+          return { ...bookmark, type: "folder" };
+        }
+
+        return { ...bookmark, type: "bookmark" };
+      })
+      .sort((a, b) => {
+        if (a.type === "folder" && b.type === "folder") return 0;
+        if (a.type === "folder" && b.type === "bookmark") return -1;
+
+        return 1;
+      });
+
+    setBookmarkList(foldersToTop);
   }, [bookmarks]);
 
   const removeBookmark = (bookmarkId: string) => {
@@ -91,7 +106,9 @@ const BookmarkList = ({
             </AccordionButton>
           </h2>
           <AccordionPanel pb={4}>
-            <BookmarkListContent />
+            <Stack p="2" spacing="2" direction="column">
+              <BookmarkListContent />
+            </Stack>
           </AccordionPanel>
         </AccordionItem>
       </Accordion>
