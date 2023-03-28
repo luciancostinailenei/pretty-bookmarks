@@ -16,9 +16,11 @@ const MainLayout = () => {
       )}
     >
       <ThemeToggle />
+
       <Heading pl="15px" mb="20px" size="sm">
         Your pretty bookmarks:
       </Heading>
+
       <BookmarkFolderTabs />
     </main>
   );

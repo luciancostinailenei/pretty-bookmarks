@@ -1,5 +1,14 @@
 import { useState, useEffect } from "react";
-import { Tabs, Tab, TabList, TabPanels, TabPanel, Box } from "@chakra-ui/react";
+import {
+  Tabs,
+  Tab,
+  TabList,
+  TabPanels,
+  TabPanel,
+  Box,
+  AbsoluteCenter,
+  Spinner,
+} from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 
 import BookmarkList, { BookmarkListType } from "../BookmarkList";
@@ -56,14 +65,11 @@ const BookmarkFolderTabs = () => {
     return folder?.children ? folder.children.length : 0;
   };
 
-  return (
-    <BookmarkFoldersContext.Provider
-      value={{
-        folders,
-        refreshFolders: () => fetchFoldersAndAddToState(setFolders),
-      }}
-    >
-      {folders.length > 0 && (
+  const BookmarksContent = () => {
+    const isBookmarksListLoading = folders.length === 0;
+
+    if (!isBookmarksListLoading) {
+      return (
         <Tabs size="sm" colorScheme="teal">
           <>
             <Box
@@ -101,7 +107,30 @@ const BookmarkFolderTabs = () => {
             </TabPanels>
           </>
         </Tabs>
-      )}
+      );
+    }
+
+    return (
+      <AbsoluteCenter color="white" axis="both">
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="teal.300"
+          size="xl"
+        />
+      </AbsoluteCenter>
+    );
+  };
+
+  return (
+    <BookmarkFoldersContext.Provider
+      value={{
+        folders,
+        refreshFolders: () => fetchFoldersAndAddToState(setFolders),
+      }}
+    >
+      <BookmarksContent />
     </BookmarkFoldersContext.Provider>
   );
 };
