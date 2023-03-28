@@ -64,7 +64,7 @@ const BookmarkList = ({
           {bookmarkList.map((bookmark) => {
             const { title, url, id, children } = bookmark;
 
-            if (children) {
+            if (children) { // is subfolder
               return (
                 <BookmarkList
                   title={title}

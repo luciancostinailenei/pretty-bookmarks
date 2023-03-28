@@ -1,21 +1,9 @@
-import { useContext } from "react";
-import {
-  Button,
-  Text,
-  Image,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  useColorMode,
-  MenuGroup,
-} from "@chakra-ui/react";
-import { DeleteIcon, ExternalLinkIcon, StarIcon } from "@chakra-ui/icons";
+import { Button, Text, Image, useColorMode } from "@chakra-ui/react";
+import { DeleteIcon } from "@chakra-ui/icons";
 import cn from "classnames";
 
-import { BookmarkFoldersContext } from "../";
-
 import styles from "./Bookmark.module.css";
+import MoveToFolderMenu from "./MoveToFolderMenu";
 
 interface BookmarkProps extends chrome.bookmarks.BookmarkTreeNode {
   removeBookmark: (bookmarkId: string) => void;
@@ -25,17 +13,9 @@ const Bookmark = ({ title, url, id, removeBookmark }: BookmarkProps) => {
   const { colorMode } = useColorMode();
   const isDarkModeOn = colorMode === "dark";
 
-  const { folders, refreshFolders } = useContext(BookmarkFoldersContext);
-
   const onPressDelete = async (bookmarkId: string) => {
     await chrome.bookmarks.remove(bookmarkId);
     removeBookmark(id);
-  };
-
-  const onChooseFolder = async (bookmarkId: string, folderId: string) => {
-    await chrome.bookmarks.move(bookmarkId, { parentId: folderId });
-    removeBookmark(id);
-    await refreshFolders();
   };
 
   return (
@@ -71,31 +51,7 @@ const Bookmark = ({ title, url, id, removeBookmark }: BookmarkProps) => {
       </div>
 
       <div className={styles.actions}>
-        <Menu>
-          <MenuButton
-            as={Button}
-            colorScheme="teal"
-            ml="5px"
-            size="xs"
-            variant="ghost"
-          >
-            <ExternalLinkIcon mt="-1" boxSize={4} />
-          </MenuButton>
-          <MenuList>
-            <MenuGroup title="Move to folder:">
-              {folders.map(({ title, id: folderId }) => (
-                <MenuItem
-                  key={`menu-${title}-${id}`}
-                  onClick={() => onChooseFolder(id, folderId)}
-                  pl="20px"
-                >
-                  <StarIcon />
-                  <Text ml="5px">{title}</Text>
-                </MenuItem>
-              ))}
-            </MenuGroup>
-          </MenuList>
-        </Menu>
+        <MoveToFolderMenu removeBookmark={removeBookmark} bookmarkId={id} />
 
         <Button
           onClick={() => onPressDelete(id)}
