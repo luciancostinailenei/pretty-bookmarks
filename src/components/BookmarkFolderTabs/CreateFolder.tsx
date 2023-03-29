@@ -29,6 +29,13 @@ const CreateFolder = ({ parentId }: { parentId: string }) => {
     return chrome.bookmarks.create({ parentId, title: folderName });
   };
 
+  const resetStates = () => {
+    setInputValue("");
+    setError("");
+    setInputValidity(true);
+    setInputState(InputStateValues.Hidden);
+  };
+
   const showInputOrValidateAndThenCreateAndRefresh = async () => {
     if (inputState === InputStateValues.Hidden) {
       setInputState(InputStateValues.Visible);
@@ -47,10 +54,7 @@ const CreateFolder = ({ parentId }: { parentId: string }) => {
       return;
     }
 
-    setInputValue("");
-    setError("");
-    setInputValidity(true);
-    setInputState(InputStateValues.Hidden);
+    resetStates();
     refreshFolders();
   };
 
