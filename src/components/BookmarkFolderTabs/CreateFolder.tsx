@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useRef, useEffect } from "react";
 import {
   Flex,
   Button,
@@ -60,19 +60,27 @@ const CreateFolder = ({ parentId }: { parentId: string }) => {
 
   const isError = error !== "";
 
+  const folderNameInputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (inputState === InputStateValues.Visible) {
+      folderNameInputRef.current?.focus();
+    }
+  }, [inputState]);
+
   return (
     <Flex p="2">
       {inputState === InputStateValues.Visible && (
         <FormControl width="78%" isInvalid={isError}>
           <Input
-            value={inputValue}
-            placeholder="* New folder name"
-            size="xs"
-            mr="2"
-            onChange={(e) => setInputValue(e.target.value)}
             focusBorderColor="green.200"
             errorBorderColor="red.300"
+            size="xs"
+            mr="2"
+            value={inputValue}
+            placeholder="* New folder name"
+            onChange={(e) => setInputValue(e.target.value)}
             isInvalid={!isInputValid}
+            ref={folderNameInputRef}
           />
           <FormErrorMessage>{error}</FormErrorMessage>
         </FormControl>
