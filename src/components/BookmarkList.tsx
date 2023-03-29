@@ -1,21 +1,8 @@
-import { useContext } from "react";
-import {
-  Text,
-  Stack,
-  CheckboxGroup,
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  Box,
-  AccordionIcon,
-  Button,
-  Flex,
-} from "@chakra-ui/react";
-import { StarIcon, DeleteIcon } from "@chakra-ui/icons";
+import { Text, Stack, CheckboxGroup } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 
-import { Bookmark, BookmarkFoldersContext } from "./";
+import { Bookmark } from "./";
+import Subfolder from "./Subfolder";
 
 export enum BookmarkListType {
   List = "LIST",
@@ -37,8 +24,6 @@ const BookmarkList = ({
 }: BookmarkListProps) => {
   const [bookmarkList, setBookmarkList] =
     useState<chrome.bookmarks.BookmarkTreeNode[]>(bookmarks);
-
-  const { refreshFolders } = useContext(BookmarkFoldersContext);
 
   useEffect(() => {
     const foldersToTop = bookmarks
@@ -62,11 +47,6 @@ const BookmarkList = ({
   const removeBookmarkFromList = (bookmarkId: string) => {
     const filteredBookmarks = bookmarks.filter((b) => b.id !== bookmarkId);
     setBookmarkList(filteredBookmarks);
-  };
-
-  const removeFolderFromChromeAndRefresh = async (folderId: string) => {
-    await chrome.bookmarks.remove(folderId);
-    refreshFolders();
   };
 
   const BookmarkListContent = () => {
@@ -106,53 +86,6 @@ const BookmarkList = ({
     return <Text fontSize="sm">No bookmarks saved in this folder.</Text>;
   };
 
-  const Subfolder = ({
-    title,
-    id,
-    hasChildren,
-  }: {
-    title: string;
-    id: string;
-    hasChildren: boolean;
-  }) => (
-    <>
-      <Accordion allowToggle>
-        <AccordionItem>
-          <h2>
-            <AccordionButton>
-              <Box display="flex" alignItems="center">
-                <StarIcon mr="5px" />
-                <Text>{title}</Text>
-              </Box>
-              <AccordionIcon ml="auto" />
-            </AccordionButton>
-          </h2>
-          <AccordionPanel pb={4}>
-            {!hasChildren && (
-              <Flex>
-                <Button
-                  leftIcon={<DeleteIcon />}
-                  colorScheme="red"
-                  variant="outline"
-                  size="xs"
-                  borderRadius="2"
-                  marginLeft="auto"
-                  onClick={() => removeFolderFromChromeAndRefresh(id)}
-                >
-                  Delete folder
-                </Button>
-              </Flex>
-            )}
-
-            <Stack p="2" spacing="2" direction="column">
-              <BookmarkListContent />
-            </Stack>
-          </AccordionPanel>
-        </AccordionItem>
-      </Accordion>
-    </>
-  );
-
   return (
     <CheckboxGroup colorScheme="teal">
       <Stack p="2" spacing="2" direction="column">
@@ -162,7 +95,8 @@ const BookmarkList = ({
           <Subfolder
             title={title}
             id={folderId}
-            hasChildren={bookmarkList.length > 0}
+            hasBookmarks={bookmarkList.length > 0}
+            children={<BookmarkListContent />}
           />
         )}
       </Stack>
