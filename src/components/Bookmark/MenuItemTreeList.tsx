@@ -17,21 +17,19 @@ const MenuItemTreeList = ({
   <>
     {folders.map(({ title, id: folderId, children }) => (
       <>
-        {children && ( // is folder
-          <MenuItem
-            key={`menu-${title}-${bookmarkId}`}
-            onClick={() => onChooseFolder(bookmarkId, folderId)}
-            pl={`${20 * startLevel}px`}
-          >
-            <StarIcon />
-            <Text ml="5px">{title}</Text>
-          </MenuItem>
-        )}
+        <MenuItem
+          key={`menu-${title}-${bookmarkId}`}
+          onClick={() => onChooseFolder(bookmarkId, folderId)}
+          pl={`${20 * startLevel}px`}
+        >
+          <StarIcon />
+          <Text ml="5px">{title}</Text>
+        </MenuItem>
 
         {children &&
           children.length > 0 && ( // is folder and there's a possibility to have subfolders
             <MenuItemTreeList
-              folders={children}
+              folders={children.filter((c) => c.children !== undefined)}
               bookmarkId={bookmarkId}
               onChooseFolder={onChooseFolder}
               key={`move-to-folder-menu-${folderId}`}

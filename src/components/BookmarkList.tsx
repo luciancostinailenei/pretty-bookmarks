@@ -94,7 +94,7 @@ const BookmarkList = ({
                 title={title}
                 url={url}
                 id={id}
-                removeBookmark={removeBookmarkFromList}
+                removeBookmarkFromList={removeBookmarkFromList}
                 key={`bookmark-${id}`}
               />
             );

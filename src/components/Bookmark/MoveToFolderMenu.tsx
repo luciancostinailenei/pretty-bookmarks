@@ -12,19 +12,22 @@ import { BookmarkFoldersContext } from "../";
 import MenuItemTreeList from "./MenuItemTreeList";
 
 interface MoveToFolderMenuProps {
-  removeBookmark: (bookmarkId: string) => void;
+  removeBookmarkFromList: (bookmarkId: string) => void;
   bookmarkId: string;
 }
 
 const MoveToFolderMenu = ({
-  removeBookmark,
+  removeBookmarkFromList,
   bookmarkId,
 }: MoveToFolderMenuProps) => {
   const { folders, refreshFolders } = useContext(BookmarkFoldersContext);
 
-  const onChooseFolder = async (bookmarkId: string, folderId: string) => {
+  const moveBookmarkAndRefresh = async (
+    bookmarkId: string,
+    folderId: string
+  ) => {
     await chrome.bookmarks.move(bookmarkId, { parentId: folderId });
-    removeBookmark(bookmarkId);
+    removeBookmarkFromList(bookmarkId);
     await refreshFolders();
   };
 
@@ -44,9 +47,10 @@ const MoveToFolderMenu = ({
       <MenuList>
         <MenuGroup title="Move to folder:">
           <MenuItemTreeListComponent
+            key={`menu-${bookmarkId}`}
             folders={folders}
             bookmarkId={bookmarkId}
-            onChooseFolder={onChooseFolder}
+            onChooseFolder={moveBookmarkAndRefresh}
             startLevel={1}
           />
         </MenuGroup>

@@ -6,16 +6,21 @@ import styles from "./Bookmark.module.css";
 import MoveToFolderMenu from "./MoveToFolderMenu";
 
 interface BookmarkProps extends chrome.bookmarks.BookmarkTreeNode {
-  removeBookmark: (bookmarkId: string) => void;
+  removeBookmarkFromList: (bookmarkId: string) => void;
 }
 
-const Bookmark = ({ title, url, id, removeBookmark }: BookmarkProps) => {
+const Bookmark = ({
+  title,
+  url,
+  id,
+  removeBookmarkFromList,
+}: BookmarkProps) => {
   const { colorMode } = useColorMode();
   const isDarkModeOn = colorMode === "dark";
 
-  const onPressDelete = async (bookmarkId: string) => {
+  const removeBookmarkFromChromeAndList = async (bookmarkId: string) => {
     await chrome.bookmarks.remove(bookmarkId);
-    removeBookmark(id);
+    removeBookmarkFromList(id);
   };
 
   return (
@@ -51,10 +56,13 @@ const Bookmark = ({ title, url, id, removeBookmark }: BookmarkProps) => {
       </div>
 
       <div className={styles.actions}>
-        <MoveToFolderMenu removeBookmark={removeBookmark} bookmarkId={id} />
+        <MoveToFolderMenu
+          removeBookmarkFromList={removeBookmarkFromList}
+          bookmarkId={id}
+        />
 
         <Button
-          onClick={() => onPressDelete(id)}
+          onClick={() => removeBookmarkFromChromeAndList(id)}
           colorScheme="teal"
           ml="5px"
           size="xs"
