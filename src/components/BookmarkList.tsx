@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import {
   Text,
   Stack,
@@ -8,11 +9,13 @@ import {
   AccordionPanel,
   Box,
   AccordionIcon,
+  Button,
+  Flex,
 } from "@chakra-ui/react";
-import { StarIcon } from "@chakra-ui/icons";
+import { StarIcon, DeleteIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
 
-import Bookmark from "./Bookmark/Bookmark";
+import { Bookmark, BookmarkFoldersContext } from "./";
 
 export enum BookmarkListType {
   List = "LIST",
@@ -23,15 +26,19 @@ type BookmarkListProps = {
   bookmarks: chrome.bookmarks.BookmarkTreeNode[];
   type: BookmarkListType;
   title: string;
+  folderId: string;
 };
 
 const BookmarkList = ({
   bookmarks,
   type = BookmarkListType.List,
   title,
+  folderId,
 }: BookmarkListProps) => {
   const [bookmarkList, setBookmarkList] =
     useState<chrome.bookmarks.BookmarkTreeNode[]>(bookmarks);
+
+  const { refreshFolders } = useContext(BookmarkFoldersContext);
 
   useEffect(() => {
     const foldersToTop = bookmarks
@@ -52,9 +59,14 @@ const BookmarkList = ({
     setBookmarkList(foldersToTop);
   }, [bookmarks]);
 
-  const removeBookmark = (bookmarkId: string) => {
-    const filteredBookmarms = bookmarks.filter((b) => b.id !== bookmarkId);
-    setBookmarkList(filteredBookmarms);
+  const removeBookmarkFromList = (bookmarkId: string) => {
+    const filteredBookmarks = bookmarks.filter((b) => b.id !== bookmarkId);
+    setBookmarkList(filteredBookmarks);
+  };
+
+  const removeFolderFromChromeAndRefresh = async (folderId: string) => {
+    await chrome.bookmarks.remove(folderId);
+    refreshFolders();
   };
 
   const BookmarkListContent = () => {
@@ -64,13 +76,15 @@ const BookmarkList = ({
           {bookmarkList.map((bookmark) => {
             const { title, url, id, children } = bookmark;
 
-            if (children) { // is subfolder
+            if (children) {
+              // is subfolder
               return (
                 <BookmarkList
                   title={title}
                   type={BookmarkListType.Subfolder}
                   bookmarks={children}
                   key={`bookmarkList-${id}`}
+                  folderId={id}
                 />
               );
             }
@@ -80,7 +94,7 @@ const BookmarkList = ({
                 title={title}
                 url={url}
                 id={id}
-                removeBookmark={removeBookmark}
+                removeBookmark={removeBookmarkFromList}
                 key={`bookmark-${id}`}
               />
             );
@@ -92,7 +106,15 @@ const BookmarkList = ({
     return <Text fontSize="sm">No bookmarks saved in this folder.</Text>;
   };
 
-  const Subfolder = ({ title }: { title: string }) => (
+  const Subfolder = ({
+    title,
+    id,
+    hasChildren,
+  }: {
+    title: string;
+    id: string;
+    hasChildren: boolean;
+  }) => (
     <>
       <Accordion allowToggle>
         <AccordionItem>
@@ -106,6 +128,22 @@ const BookmarkList = ({
             </AccordionButton>
           </h2>
           <AccordionPanel pb={4}>
+            {!hasChildren && (
+              <Flex>
+                <Button
+                  leftIcon={<DeleteIcon />}
+                  colorScheme="red"
+                  variant="outline"
+                  size="xs"
+                  borderRadius="2"
+                  marginLeft="auto"
+                  onClick={() => removeFolderFromChromeAndRefresh(id)}
+                >
+                  Delete folder
+                </Button>
+              </Flex>
+            )}
+
             <Stack p="2" spacing="2" direction="column">
               <BookmarkListContent />
             </Stack>
@@ -121,7 +159,11 @@ const BookmarkList = ({
         {type === BookmarkListType.List ? (
           <BookmarkListContent />
         ) : (
-          <Subfolder title={title} />
+          <Subfolder
+            title={title}
+            id={folderId}
+            hasChildren={bookmarkList.length > 0}
+          />
         )}
       </Stack>
     </CheckboxGroup>

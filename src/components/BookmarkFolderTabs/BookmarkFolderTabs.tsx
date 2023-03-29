@@ -104,6 +104,7 @@ const BookmarkFolderTabs = () => {
                     type={BookmarkListType.List}
                     title={title}
                     bookmarks={getSortedBookmarksInsideFolder(id)}
+                    folderId={id}
                   />
                 </TabPanel>
               ))}
