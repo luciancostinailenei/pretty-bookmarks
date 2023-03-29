@@ -34,7 +34,7 @@ const MoveToFolderMenu = ({
   const MenuItemTreeListComponent = memo(MenuItemTreeList);
 
   return (
-    <Menu>
+    <Menu isLazy>
       <MenuButton
         as={Button}
         colorScheme="teal"
