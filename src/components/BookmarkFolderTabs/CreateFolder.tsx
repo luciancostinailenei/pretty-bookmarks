@@ -29,7 +29,7 @@ const CreateFolder = ({ parentId }: { parentId: string }) => {
     return chrome.bookmarks.create({ parentId, title: folderName });
   };
 
-  const onClickCreate = async () => {
+  const showInputOrValidateAndThenCreateAndRefresh = async () => {
     if (inputState === InputStateValues.Hidden) {
       setInputState(InputStateValues.Visible);
       return;
@@ -51,11 +51,10 @@ const CreateFolder = ({ parentId }: { parentId: string }) => {
     setError("");
     setInputValidity(true);
     setInputState(InputStateValues.Hidden);
-
     refreshFolders();
   };
 
-  const isError = error !== null;
+  const isError = error !== "";
 
   return (
     <Flex p="2">
@@ -84,7 +83,7 @@ const CreateFolder = ({ parentId }: { parentId: string }) => {
         size="xs"
         width="20%"
         borderRadius="2"
-        onClick={onClickCreate}
+        onClick={showInputOrValidateAndThenCreateAndRefresh}
         marginLeft="auto"
       >
         New folder
