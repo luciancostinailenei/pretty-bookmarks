@@ -13,6 +13,7 @@ import { StarIcon } from "@chakra-ui/icons";
 
 import BookmarkList, { BookmarkListType } from "../BookmarkList";
 import BookmarkFoldersContext from "./BookmarkFoldersContext";
+import CreateFolder from "./CreateFolder";
 
 const fetchBookmarksFoldersAndSortByItemsCount = async (): Promise<
   chrome.bookmarks.BookmarkTreeNode[]
@@ -97,6 +98,8 @@ const BookmarkFolderTabs = () => {
             <TabPanels>
               {folders.map(({ id, title }) => (
                 <TabPanel p="5px" key={`tab-${id}`}>
+                  <CreateFolder parentId={id} />
+
                   <BookmarkList
                     type={BookmarkListType.List}
                     title={title}
