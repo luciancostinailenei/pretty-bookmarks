@@ -41,7 +41,7 @@ const Bookmark = ({
         ></Image>
       )}
 
-      <div className={styles.content}>
+      <div className={styles["bookmark__content"]}>
         <Text color="teal.400" fontSize="sm" as="b">
           <a href={url} rel="noreferrer" target="_blank">
             {title}
@@ -55,7 +55,7 @@ const Bookmark = ({
         </Text>
       </div>
 
-      <div className={styles.actions}>
+      <div className={styles["bookmark__actions"]}>
         <MoveToFolderMenu
           removeBookmarkFromList={removeBookmarkFromList}
           bookmarkId={id}

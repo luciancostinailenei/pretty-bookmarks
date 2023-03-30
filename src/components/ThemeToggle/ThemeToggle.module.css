@@ -1,3 +1,7 @@
+/* 
+* THEME TOGGLE block
+*/
+
 .themeToggle {
   display: flex;
   justify-content: flex-end;
