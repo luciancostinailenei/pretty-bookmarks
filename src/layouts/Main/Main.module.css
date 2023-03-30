@@ -9,3 +9,24 @@
 .main--light {
   background-color: #f3f5f9;
 }
+
+
+  .main__heading {
+    background-clip: text;
+    color: transparent;
+
+    font-size: 17px;
+    font-weight: bold;
+
+    margin-left: 15px;
+    margin-top: -10px;
+    margin-bottom: 15px;
+  }
+
+  .main__heading--dark {
+    background-image: linear-gradient(40deg, #43c8c2, #f8fffe);
+  }
+
+  .main__heading--light {
+    background-image: linear-gradient(40deg, #234E52, #B2F5EA);
+  }

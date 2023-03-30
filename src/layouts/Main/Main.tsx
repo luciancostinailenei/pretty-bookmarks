@@ -1,4 +1,4 @@
-import { Heading, useColorMode } from "@chakra-ui/react";
+import { useColorMode } from "@chakra-ui/react";
 import cn from "classnames";
 
 import { ThemeToggle, BookmarkFolderTabs } from "../../components";
@@ -17,9 +17,16 @@ const MainLayout = () => {
     >
       <ThemeToggle />
 
-      <Heading pl="15px" mb="20px" size="sm">
-        Your pretty bookmarks:
-      </Heading>
+      <h2
+        className={cn(
+          styles.main__heading,
+          colorMode === "dark"
+            ? styles["main__heading--dark"]
+            : styles["main__heading--light"]
+        )}
+      >
+        My pretty bookmarks:
+      </h2>
 
       <BookmarkFolderTabs />
     </main>
