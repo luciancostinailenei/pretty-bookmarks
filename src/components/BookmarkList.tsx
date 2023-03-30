@@ -45,7 +45,7 @@ const BookmarkList = ({
   }, [bookmarks]);
 
   const removeBookmarkFromList = (bookmarkId: string) => {
-    const filteredBookmarks = bookmarks.filter((b) => b.id !== bookmarkId);
+    const filteredBookmarks = bookmarkList.filter((b) => b.id !== bookmarkId);
     setBookmarkList(filteredBookmarks);
   };
 
