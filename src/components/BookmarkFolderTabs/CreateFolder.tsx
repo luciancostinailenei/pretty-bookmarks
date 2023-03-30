@@ -68,7 +68,7 @@ const CreateFolder = ({ parentId }: { parentId: string }) => {
   }, [inputState]);
 
   return (
-    <Flex p="2">
+    <Flex overflow="hidden" p="2">
       {inputState === InputStateValues.Visible && (
         <FormControl width="78%" isInvalid={isError}>
           <Input
@@ -81,6 +81,7 @@ const CreateFolder = ({ parentId }: { parentId: string }) => {
             onChange={(e) => setInputValue(e.target.value)}
             isInvalid={!isInputValid}
             ref={folderNameInputRef}
+            animation="append-animate .3s linear"
           />
           <FormErrorMessage>{error}</FormErrorMessage>
         </FormControl>
