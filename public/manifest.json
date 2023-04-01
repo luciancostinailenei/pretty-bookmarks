@@ -1,11 +1,17 @@
 {
   "manifest_version": 3,
   "name": "Pretty Bookmarks",
-  "description": "Base Level Extension",
+  "description": "A very simple bookmark manager for Google Chrome",
   "version": "1.0",
   "action": {
     "default_popup": "index.html",
-    "default_icon": "logo.png"
+    "default_icon": "pblogo-32.png"
+  },
+  "icons": {
+    "16": "pblogo-16.png",
+    "24": "pblogo-24.png",
+    "32": "pblogo-32.png",
+    "64": "pblogo-64.png"
   },
   "permissions": ["bookmarks", "favicon"]
 }

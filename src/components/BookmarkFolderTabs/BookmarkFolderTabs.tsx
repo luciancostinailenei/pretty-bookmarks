@@ -73,27 +73,14 @@ const BookmarkFolderTabs = () => {
       return (
         <Tabs size="sm" colorScheme="teal">
           <>
-            <Box
-              sx={{
-                "&::-webkit-scrollbar": {
-                  height: "10px",
-                  backgroundColor: `rgba(0, 0, 0, 0.1)`,
-                },
-                "&::-webkit-scrollbar-thumb": {
-                  backgroundColor: `rgba(0, 0, 0, 0.1)`,
-                },
-              }}
-              overflow="auto"
-            >
-              <TabList w="max-content">
-                {folders.map(({ title, id }) => (
-                  <Tab key={id}>
-                    <StarIcon mr="5px" />
-                    {`${title} (${getFolderBookmarksCount(id)})`}
-                  </Tab>
-                ))}
-              </TabList>
-            </Box>
+            <TabList w="max-content">
+              {folders.map(({ title, id }) => (
+                <Tab key={id}>
+                  <StarIcon mr="5px" />
+                  {`${title} (${getFolderBookmarksCount(id)})`}
+                </Tab>
+              ))}
+            </TabList>
 
             <TabPanels>
               {folders.map(({ id, title }) => (

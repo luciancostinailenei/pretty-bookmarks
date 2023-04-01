@@ -4,6 +4,7 @@
 
 .main {
   min-height: 600px;
+  box-shadow: inset 0 3em 5em rgba(0, 0, 0, 0.05);
 }
 
 .main--dark {
@@ -15,6 +16,7 @@
 }
 
 .main__heading {
+  display: flex;
   background-clip: text;
   color: transparent;
 
@@ -31,5 +33,5 @@
 }
 
 .main__heading--light {
-  background-image: linear-gradient(40deg, #234e52, #b2f5ea);
+  background-image: linear-gradient(40deg, #2c7a7b, #b2f5ea);
 }
