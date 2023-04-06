@@ -13,5 +13,9 @@
     "32": "pblogo-32.png",
     "64": "pblogo-64.png"
   },
-  "permissions": ["bookmarks", "favicon"]
+  "permissions": ["bookmarks", "favicon", "tabs", "scripting"],
+  "background": {
+    "service_worker": "events-listener.js"
+  },
+  "host_permissions": ["https://*/*", "http://*/*"]
 }

@@ -70,7 +70,8 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "cross-env INLINE_RUNTIME_CHUNK=false node scripts/build.js",
+    "build": "cross-env INLINE_RUNTIME_CHUNK=false node scripts/build.js && yarn compile-events",
+    "compile-events": "tsc --out build/events-listener.js src/scripts/events-listener.ts",
     "test": "node scripts/test.js",
     "watch": "node scripts/watch.js"
   },
