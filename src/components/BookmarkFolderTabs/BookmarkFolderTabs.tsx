@@ -5,7 +5,6 @@ import {
   TabList,
   TabPanels,
   TabPanel,
-  Box,
   AbsoluteCenter,
   Spinner,
 } from "@chakra-ui/react";

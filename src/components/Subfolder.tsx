@@ -31,43 +31,45 @@ const Subfolder = ({ title, id, hasBookmarks, children }: SubfolderProps) => {
   };
 
   return (
-    <>
-      <Accordion allowToggle>
-        <AccordionItem>
-          <h2>
-            <AccordionButton>
-              <Box display="flex" alignItems="center">
-                <StarIcon mr="5px" />
-                <Text>{title}</Text>
-              </Box>
-              <AccordionIcon ml="auto" />
-            </AccordionButton>
-          </h2>
+    <Accordion allowToggle>
+      <AccordionItem>
+        <h2>
+          <AccordionButton
+            sx={{ "&:hover": { backgroundColor: "gray.200" } }}
+            _expanded={{ bg: "gray.200", color: "teal.600" }}
+            className="folderBtn"
+          >
+            <Box display="flex" alignItems="center">
+              <StarIcon mr="5px" />
+              <Text>{title}</Text>
+            </Box>
+            <AccordionIcon ml="auto" />
+          </AccordionButton>
+        </h2>
 
-          <AccordionPanel pb={4}>
-            {!hasBookmarks && (
-              <Flex>
-                <Button
-                  leftIcon={<DeleteIcon />}
-                  colorScheme="red"
-                  variant="outline"
-                  size="xs"
-                  borderRadius="2"
-                  marginLeft="auto"
-                  onClick={() => removeFolderFromChromeAndRefresh(id)}
-                >
-                  Delete folder
-                </Button>
-              </Flex>
-            )}
+        <AccordionPanel pb={4}>
+          {!hasBookmarks && (
+            <Flex>
+              <Button
+                leftIcon={<DeleteIcon />}
+                colorScheme="red"
+                variant="outline"
+                size="xs"
+                borderRadius="2"
+                marginLeft="auto"
+                onClick={() => removeFolderFromChromeAndRefresh(id)}
+              >
+                Delete folder
+              </Button>
+            </Flex>
+          )}
 
-            <Stack p="2" spacing="2" direction="column">
-              {children}
-            </Stack>
-          </AccordionPanel>
-        </AccordionItem>
-      </Accordion>
-    </>
+          <Stack p="2" spacing="2" direction="column">
+            {children}
+          </Stack>
+        </AccordionPanel>
+      </AccordionItem>
+    </Accordion>
   );
 };
 
