@@ -54,7 +54,7 @@ const BookmarkList = ({
       return (
         <>
           {bookmarkList.map((bookmark) => {
-            const { title, url, id, children } = bookmark;
+            const { title, url, id, children, dateAdded } = bookmark;
 
             if (children) {
               // is subfolder
@@ -75,6 +75,7 @@ const BookmarkList = ({
                 url={url}
                 id={id}
                 removeBookmarkFromList={removeBookmarkFromList}
+                dateAdded={dateAdded}
                 key={`bookmark-${id}`}
               />
             );

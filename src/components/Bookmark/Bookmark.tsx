@@ -13,6 +13,7 @@ const Bookmark = ({
   title,
   url,
   id,
+  dateAdded,
   removeBookmarkFromList,
 }: BookmarkProps) => {
   const { colorMode } = useColorMode();
@@ -22,6 +23,10 @@ const Bookmark = ({
     await chrome.bookmarks.remove(bookmarkId);
     removeBookmarkFromList(id);
   };
+
+  const parsedDate = dateAdded
+    ? new Date(dateAdded).toLocaleDateString("en-US")
+    : "";
 
   return (
     <div
@@ -47,6 +52,12 @@ const Bookmark = ({
             {title}
           </a>
         </Text>
+
+        {dateAdded && (
+          <Text color="gray.400">
+            Saved on: <span>{parsedDate}</span>
+          </Text>
+        )}
 
         <Text fontSize="sm">
           <a href={url} rel="noreferrer" target="_blank">
