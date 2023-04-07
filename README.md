@@ -26,4 +26,7 @@ A pretty Google Chrome bookmark manager created with productivity with mind.
 - Quick search
 
 ## Installing
+
 - work in progress
+
+## Contributing
