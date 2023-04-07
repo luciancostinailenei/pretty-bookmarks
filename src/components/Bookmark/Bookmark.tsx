@@ -1,4 +1,5 @@
-import { Button, Text, Image, useColorMode } from "@chakra-ui/react";
+import { useState, useEffect } from "react";
+import { Button, Text, Image, useColorMode, Flex } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import cn from "classnames";
 
@@ -18,6 +19,7 @@ const Bookmark = ({
 }: BookmarkProps) => {
   const { colorMode } = useColorMode();
   const isDarkModeOn = colorMode === "dark";
+  const [referral, setReferral] = useState("");
 
   const removeBookmarkFromChromeAndList = async (bookmarkId: string) => {
     await chrome.bookmarks.remove(bookmarkId);
@@ -27,6 +29,19 @@ const Bookmark = ({
   const parsedDate = dateAdded
     ? new Date(dateAdded).toLocaleDateString("en-US")
     : "";
+
+  useEffect(() => {
+    const retrieveReferral = async () => {
+      const storageKey = `${id}-${title}`;
+      const retrievedStorage = await chrome.storage.local.get([
+        `${id}-${title}`,
+      ]);
+
+      setReferral(retrievedStorage[storageKey]);
+    };
+
+    retrieveReferral();
+  }, [id, title]);
 
   return (
     <div
@@ -54,12 +69,24 @@ const Bookmark = ({
         </Text>
 
         {dateAdded && (
-          <Text color="gray.400">
-            Saved on: <span>{parsedDate}</span>
-          </Text>
+          <Flex>
+            <Text color="gray.500">Saved on:</Text>
+            <Text color="gray.400" fontStyle="italic" ml="3px">
+              {parsedDate}
+            </Text>
+          </Flex>
         )}
 
-        <Text fontSize="sm">
+        {referral && (
+          <Flex>
+            <Text color="gray.500">What brought me here:</Text>
+            <Text color="gray.400" fontStyle="italic" ml="3px">
+              {referral}
+            </Text>
+          </Flex>
+        )}
+
+        <Text color="blue.400" mt="10px" fontSize="sm">
           <a href={url} rel="noreferrer" target="_blank">
             {url}
           </a>
