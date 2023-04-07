@@ -35,8 +35,22 @@ const Subfolder = ({ title, id, hasBookmarks, children }: SubfolderProps) => {
       <AccordionItem>
         <h2>
           <AccordionButton
-            sx={{ "&:hover": { backgroundColor: "gray.200" } }}
-            _expanded={{ bg: "gray.200", color: "teal.600" }}
+            sx={{
+              "html[data-theme='dark'] &:hover": {
+                backgroundColor: "whiteAlpha.200",
+              },
+              "html[data-theme='dark'] &[aria-expanded='true']": {
+                backgroundColor: "whiteAlpha.200",
+                color: "teal.300",
+              },
+              "html[data-theme='light'] &:hover": {
+                backgroundColor: "gray.200",
+              },
+              "html[data-theme='light'] &[aria-expanded='true']": {
+                backgroundColor: "gray.200",
+                color: "teal.600",
+              },
+            }}
             className="folderBtn"
           >
             <Box display="flex" alignItems="center">
