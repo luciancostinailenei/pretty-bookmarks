@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button, Text, Image, useColorMode, Flex } from "@chakra-ui/react";
+import { Button, Text, Image, useColorMode, Flex, Box } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import cn from "classnames";
 
@@ -43,6 +43,11 @@ const Bookmark = ({
     retrieveReferral();
   }, [id, title]);
 
+  const slicedReferral =
+    referral && referral.length > 160
+      ? referral.slice(0, 159).concat("...")
+      : referral;
+
   return (
     <div
       className={cn(
@@ -69,7 +74,7 @@ const Bookmark = ({
         </Text>
 
         {dateAdded && (
-          <Flex>
+          <Flex fontSize="13px">
             <Text color="gray.500">Saved on:</Text>
             <Text color="gray.400" fontStyle="italic" ml="3px">
               {parsedDate}
@@ -78,15 +83,19 @@ const Bookmark = ({
         )}
 
         {referral && (
-          <Flex>
-            <Text color="gray.500">What brought me here:</Text>
-            <Text color="gray.400" fontStyle="italic" ml="3px">
-              {referral}
-            </Text>
-          </Flex>
+          <Box>
+            <span className={styles["bookmark__info-item"]}>
+              What brought me here:
+            </span>
+            <span className={styles["bookmark__info-value"]}>
+              <a href={referral} rel="noreferrer" target="_blank">
+                {slicedReferral}
+              </a>
+            </span>
+          </Box>
         )}
 
-        <Text color="blue.400" mt="10px" fontSize="sm">
+        <Text display="inline" color="blue.400" mt="10px" fontSize="sm">
           <a href={url} rel="noreferrer" target="_blank">
             {url}
           </a>

@@ -1,5 +1,5 @@
 /* 
-* BOOKMARK block and children: content, actions
+* BOOKMARK block and elements: content, actions, info
 */
 
 .bookmark {
@@ -23,21 +23,40 @@
 }
 
 /*
-* CONTENT
+* CONTENT element
 */
 
-  .bookmark__content {
-    display: flex;
-    flex-direction: column;
+.bookmark__content {
+  display: flex;
+  flex-direction: column;
 
-    margin-left: 5px;
-  }
+  margin-left: 5px;
+}
 
 /*
-* ACTIONS
+* ACTIONS element
 */
 
-  .bookmark__actions {
-    margin-left: auto;
-    display: flex;
-  }
+.bookmark__actions {
+  margin-left: auto;
+  display: flex;
+}
+
+/*
+* INFO elements
+*/
+
+.bookmark__info-item {
+  color: var(--chakra-colors-gray-500);
+
+  font-size: 13px;
+}
+
+.bookmark__info-value {
+  margin-left: 3px;
+
+  color: var(--chakra-colors-gray-400);
+
+  font-size: 13px;
+  font-style: italic;
+}
