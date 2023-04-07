@@ -6,7 +6,6 @@ import {
   AccordionItem,
   AccordionButton,
   AccordionPanel,
-  Box,
   AccordionIcon,
   Button,
   Flex,
@@ -53,10 +52,10 @@ const Subfolder = ({ title, id, hasBookmarks, children }: SubfolderProps) => {
             }}
             className="folderBtn"
           >
-            <Box display="flex" alignItems="center">
+            <Flex alignItems="center">
               <StarIcon mr="5px" />
               <Text>{title}</Text>
-            </Box>
+            </Flex>
             <AccordionIcon ml="auto" />
           </AccordionButton>
         </h2>
