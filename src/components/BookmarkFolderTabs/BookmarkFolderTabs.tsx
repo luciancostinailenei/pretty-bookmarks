@@ -42,6 +42,11 @@ const BookmarkFolderTabs = () => {
   const [folders, setFolders] = useState<chrome.bookmarks.BookmarkTreeNode[]>(
     []
   );
+  const [tabIndex, setTabIndex] = useState<number>(0);
+
+  const handleTabsChange = (index: number) => {
+    setTabIndex(index);
+  };
 
   useEffect(() => {
     fetchFoldersAndAddToState(setFolders);
@@ -70,7 +75,14 @@ const BookmarkFolderTabs = () => {
 
     if (!isBookmarksListLoading) {
       return (
-        <Tabs size="sm" colorScheme="teal">
+        <Tabs
+          isLazy
+          lazyBehavior="keepMounted"
+          size="sm"
+          colorScheme="teal"
+          index={tabIndex}
+          onChange={handleTabsChange}
+        >
           <>
             <TabList w="max-content">
               {folders.map(({ title, id }) => (
