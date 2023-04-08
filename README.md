@@ -37,7 +37,7 @@ A pretty Google Chrome bookmark manager created with productivity with mind.
 2. Clone the repo
 3. `cd` into the repo and run `yarn`
 4. Run `yarn build` - this will generate the `build` folder that we're going to use to source the development version of the extension
-5. Access `chrome://extensions/` in Google Chrome browsers
+5. Access `chrome://extensions/` in Google Chrome browser
 6. Make sure `Developer mode` is toggled (up-right corner)
 7. Press 'Load unpacked' button and select the above generated `build` folder
 8. Press the`Extensions` button, search for Pretty Bookmarks and pin it in the browser's top bar for quick access
