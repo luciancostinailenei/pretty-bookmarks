@@ -20,13 +20,13 @@ const fetchBookmarksFoldersAndSortByItemsCount = async (): Promise<
   const bookmarksTree = await chrome.bookmarks.getTree();
   const bookmarksFolders = bookmarksTree[0].children || [];
 
-  bookmarksFolders.sort((a, b) => {
-    if (!a.children) return -1;
-    if (!b.children) return 1;
-    if (!a.children && !b.children) return 0;
+  // bookmarksFolders.sort((a, b) => {
+  //   if (!a.children) return -1;
+  //   if (!b.children) return 1;
+  //   if (!a.children && !b.children) return 0;
 
-    return b.children?.length - a.children?.length;
-  });
+  //   return b.children?.length - a.children?.length;
+  // });
 
   return bookmarksFolders;
 };
