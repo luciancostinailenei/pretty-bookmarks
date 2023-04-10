@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useState, useRef } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -9,15 +9,26 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
+  ModalHeader,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 
 import SearchTriggerInput from "./SearchTriggerInput";
+import BookmarkList, { BookmarkListType } from "../BookmarkList";
 
 const SearchContainer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [bookmarksResults, setBookmarksResults] = useState<
+    chrome.bookmarks.BookmarkTreeNode[] | []
+  >([]);
 
   const finalRef = useRef(null);
+
+  const searchBookmarksInBrowsersStoreAndSetState = async (query: string) => {
+    const results = await chrome.bookmarks.search(query);
+
+    setBookmarksResults(results);
+  };
 
   return (
     <>
@@ -31,8 +42,7 @@ const SearchContainer = () => {
       >
         <ModalOverlay />
         <ModalContent>
-          {/* <ModalCloseButton /> */}
-          <ModalBody>
+          <ModalHeader padding="10px">
             <InputGroup
               sx={{
                 "html[data-theme='light'] &": { backgroundColor: "gray.50" },
@@ -63,8 +73,18 @@ const SearchContainer = () => {
                     backgroundColor: "gray.700",
                   },
                 }}
+                onChange={(e) =>
+                  searchBookmarksInBrowsersStoreAndSetState(e.target.value)
+                }
               />
             </InputGroup>
+            <ModalCloseButton />
+          </ModalHeader>
+          <ModalBody sx={{ "&:empty": { padding: "0" } }}>
+            <BookmarkList
+              bookmarks={bookmarksResults}
+              type={BookmarkListType.SearchResults}
+            />
           </ModalBody>
         </ModalContent>
       </Modal>

@@ -6,8 +6,14 @@ import cn from "classnames";
 import styles from "./Bookmark.module.css";
 import MoveToFolderMenu from "./MoveToFolderMenu";
 
+export enum BookmarkDisplayType {
+  Bookmark = "BOOKMARK",
+  SearchResult = "SEARCHRESULT",
+}
+
 interface BookmarkProps extends chrome.bookmarks.BookmarkTreeNode {
   removeBookmarkFromList: (bookmarkId: string) => void;
+  displayType: BookmarkDisplayType;
 }
 
 const Bookmark = ({
@@ -16,6 +22,7 @@ const Bookmark = ({
   id,
   dateAdded,
   removeBookmarkFromList,
+  displayType = BookmarkDisplayType.Bookmark,
 }: BookmarkProps) => {
   const { colorMode } = useColorMode();
   const isDarkModeOn = colorMode === "dark";
@@ -102,22 +109,24 @@ const Bookmark = ({
         </Text>
       </div>
 
-      <div className={styles["bookmark__actions"]}>
-        <MoveToFolderMenu
-          removeBookmarkFromList={removeBookmarkFromList}
-          bookmarkId={id}
-        />
+      {displayType === BookmarkDisplayType.Bookmark && (
+        <div className={styles["bookmark__actions"]}>
+          <MoveToFolderMenu
+            removeBookmarkFromList={removeBookmarkFromList}
+            bookmarkId={id}
+          />
 
-        <Button
-          onClick={() => removeBookmarkFromChromeAndList(id)}
-          colorScheme="teal"
-          ml="5px"
-          size="xs"
-          variant="ghost"
-        >
-          <DeleteIcon boxSize={3} />
-        </Button>
-      </div>
+          <Button
+            onClick={() => removeBookmarkFromChromeAndList(id)}
+            colorScheme="teal"
+            ml="5px"
+            size="xs"
+            variant="ghost"
+          >
+            <DeleteIcon boxSize={3} />
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
