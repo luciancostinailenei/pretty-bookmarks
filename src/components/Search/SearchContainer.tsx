@@ -19,8 +19,8 @@ import BookmarkList, { BookmarkListType } from "../BookmarkList";
 const SearchContainer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [bookmarksResults, setBookmarksResults] = useState<
-    chrome.bookmarks.BookmarkTreeNode[] | []
-  >([]);
+    chrome.bookmarks.BookmarkTreeNode[] | null
+  >(null);
 
   const finalRef = useRef(null);
 
@@ -43,8 +43,7 @@ const SearchContainer = () => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader padding="10px">
-            <InputGroup
-            >
+            <InputGroup>
               <InputLeftElement
                 pointerEvents="none"
                 children={<SearchIcon color="teal.400" />}
@@ -70,10 +69,12 @@ const SearchContainer = () => {
             <ModalCloseButton />
           </ModalHeader>
           <ModalBody sx={{ "&:empty": { padding: "0" } }}>
-            <BookmarkList
-              bookmarks={bookmarksResults}
-              type={BookmarkListType.SearchResults}
-            />
+            {bookmarksResults && (
+              <BookmarkList
+                bookmarks={bookmarksResults}
+                type={BookmarkListType.SearchResults}
+              />
+            )}
           </ModalBody>
         </ModalContent>
       </Modal>
