@@ -11,19 +11,16 @@ A pretty Google Chrome bookmark manager created with productivity with mind.
 
 ## Features
 
+- Quick Seach - Provide a query based on which bookmarks with matching title or URL are returned
 - Main bookmark folders (Bookmarks bar, Mobile bookmarks, Other bookmarks) are split in tabs for easy access
 - Allows quick creation of level one subfolders in each of the above mentioned global folders to serve as categories (deeper levels are not purposely not allowed to avoid mess)
-- Subfolders are presented on top
+- Subfolders are presented on top of bookmarks lists
 - Bookmarks are ordered by date
-- Presents bookmark's saved date
-- Presents bookmark referral if available (the link that brought you there is of type do-follow)
+- Bookmark's saved date is shown
+- Bookmark's referral URL is shown if available (the link that brought you there is of type do-follow)
 - Allows moving and deleting bookmarks
 - Allows deleting subfolders if they are empty
 - Allows toggling dark/light mode (initial is set by browser's current theme)
-
-## Features WIP
-
-- Quick search
 
 ## Installing
 
