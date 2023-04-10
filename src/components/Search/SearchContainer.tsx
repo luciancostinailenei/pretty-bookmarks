@@ -44,16 +44,6 @@ const SearchContainer = () => {
         <ModalContent>
           <ModalHeader padding="10px">
             <InputGroup
-              sx={{
-                "html[data-theme='light'] &": { backgroundColor: "gray.50" },
-                "html[data-theme='light'] & input::placeholder": {
-                  color: "gray.500",
-                },
-                "html[data-theme='dark'] &": {
-                  backgroundColor: "whiteAlpha.50",
-                },
-              }}
-              borderRadius="3px"
             >
               <InputLeftElement
                 pointerEvents="none"
@@ -67,20 +57,9 @@ const SearchContainer = () => {
                 placeholder="Search bookmark"
                 _placeholder={{ opacity: 1, color: "gray.400" }}
                 sx={{
-                  "html[data-theme='dark'] &": {
-                    backgroundColor: "gray.700",
-                  },
-                  "html[data-theme='dark'] &:hover, &:focus": {
-                    backgroundColor: "gray.700",
-                    borderColor: "gray.700",
-                  },
-                  "html[data-theme='light'] &": {
-                    backgroundColor: "white",
-                    color: "gray.500",
-                  },
-                  "html[data-theme='light'] &:hover, &:focus": {
-                    backgroundColor: "white",
-                    borderColor: "white "
+                  "&, &:hover, &:focus": {
+                    border: "none",
+                    background: "none",
                   },
                 }}
                 onChange={(e) =>
