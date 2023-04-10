@@ -24,14 +24,14 @@
   font-weight: bold;
 
   margin-left: 15px;
-  margin-top: -10px;
-  margin-bottom: 15px;
+  /* margin-top: -10px;
+  margin-bottom: 15px; */
 }
 
 .main__heading--dark {
-  background-image: linear-gradient(40deg, #43c8c2, #f8fffe);
+  background-image: linear-gradient(40deg, #43c8c2, #8ef1e1);
 }
 
 .main__heading--light {
-  background-image: linear-gradient(40deg, #2c7a7b, #b2f5ea);
+  background-image: linear-gradient(40deg, #2c7a7b, #31c4ab);
 }

@@ -1,7 +1,8 @@
-import { useColorMode } from "@chakra-ui/react";
+import { useColorMode, Flex } from "@chakra-ui/react";
 import cn from "classnames";
 
 import { ThemeToggle, BookmarkFolderTabs } from "../../components";
+import { SearchContainer } from "../../components";
 
 import styles from "./Main.module.css";
 
@@ -17,32 +18,33 @@ const MainLayout = () => {
     >
       <ThemeToggle />
 
-      <h2
-        className={cn(
-          styles.main__heading,
-          colorMode === "dark"
-            ? styles["main__heading--dark"]
-            : styles["main__heading--light"]
-        )}
-      >
-        <svg
-          version="1.1"
-          id="Layer_1"
-          xmlns="http://www.w3.org/2000/svg"
-          x="0px"
-          y="0px"
-          width="32px"
-          height="32px"
-          viewBox="0 0 32 32"
-          enableBackground="new 0 0 32 32"
+      <Flex mt="-10px" pr="60px" justifyContent="space-between">
+        <h2
+          className={cn(
+            styles.main__heading,
+            colorMode === "dark"
+              ? styles["main__heading--dark"]
+              : styles["main__heading--light"]
+          )}
         >
-          <image
-            id="image0"
-            width="32"
-            height="32"
-            x="0"
-            y="0"
-            href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
+          <svg
+            version="1.1"
+            id="Layer_1"
+            xmlns="http://www.w3.org/2000/svg"
+            x="0px"
+            y="0px"
+            width="32px"
+            height="32px"
+            viewBox="0 0 32 32"
+            enableBackground="new 0 0 32 32"
+          >
+            <image
+              id="image0"
+              width="32"
+              height="32"
+              x="0"
+              y="0"
+              href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
                   AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABuVBMVEUAAACa/qya/quY/KuT
                   +6uP+auM+KqI9qqF9KqB8ql98Kl676h27ahy66hv6qhr6Khn5qhk5KZg46Zd4aZZ36VW3qVS3KRO
                   2qRL2KRH2KND1aNA06NA06M80qI806E+0aI91KA80qI50KI50KI6z6FJ25IzzJk50aM50KI1zqE1
@@ -64,10 +66,13 @@ const MainLayout = () => {
                   VDA5OjQwOjUzKzAwOjAwPKA6UgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0wNC0wMVQwOTo0MDo1
                   MyswMDowME39gu4AAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwaAAAAAElFTkSu
                   QmCC"
-          />
-        </svg>
-        <span>My pretty bookmarks</span>
-      </h2>
+            />
+          </svg>
+          <span>My pretty bookmarks</span>
+        </h2>
+
+        <SearchContainer />
+      </Flex>
 
       <BookmarkFolderTabs />
     </main>

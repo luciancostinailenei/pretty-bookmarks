@@ -76,6 +76,7 @@ const BookmarkFolderTabs = () => {
     if (!isBookmarksListLoading) {
       return (
         <Tabs
+          mt="25px"
           isLazy
           lazyBehavior="keepMounted"
           size="sm"
