@@ -62,15 +62,25 @@ const SearchContainer = () => {
 
               <Input
                 variant="filled"
-                focusBorderColor="gray.700"
-                backgroundColor="gray.700"
                 size="md"
                 type="text"
                 placeholder="Search bookmark"
                 _placeholder={{ opacity: 1, color: "gray.400" }}
                 sx={{
-                  "&:hover, &:focus": {
+                  "html[data-theme='dark'] &": {
                     backgroundColor: "gray.700",
+                  },
+                  "html[data-theme='dark'] &:hover, &:focus": {
+                    backgroundColor: "gray.700",
+                    borderColor: "gray.700",
+                  },
+                  "html[data-theme='light'] &": {
+                    backgroundColor: "white",
+                    color: "gray.500",
+                  },
+                  "html[data-theme='light'] &:hover, &:focus": {
+                    backgroundColor: "white",
+                    borderColor: "white "
                   },
                 }}
                 onChange={(e) =>
