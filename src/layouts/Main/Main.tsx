@@ -18,7 +18,7 @@ const MainLayout = () => {
     >
       <ThemeToggle />
 
-      <Flex mt="-10px" pr="60px" justifyContent="space-between">
+      <Flex mt="10px" justifyContent="space-between">
         <h2
           className={cn(
             styles.main__heading,

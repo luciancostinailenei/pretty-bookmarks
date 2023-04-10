@@ -21,7 +21,7 @@ const SearchTriggerInput = ({ onFocus }: { onFocus: () => void }) => {
         />
 
         <Input
-          width="280px"
+          width="340px"
           border="none"
           size="sm"
           type="text"

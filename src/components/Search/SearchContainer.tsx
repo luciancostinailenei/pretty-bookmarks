@@ -3,11 +3,14 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
+  InputGroup,
+  Input,
+  InputLeftElement,
   ModalBody,
   ModalCloseButton,
   useDisclosure,
 } from "@chakra-ui/react";
+import { SearchIcon } from "@chakra-ui/icons";
 
 import SearchTriggerInput from "./SearchTriggerInput";
 
@@ -28,9 +31,41 @@ const SearchContainer = () => {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Modal Header - Search Input</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>Modal Content - Results</ModalBody>
+          {/* <ModalCloseButton /> */}
+          <ModalBody>
+            <InputGroup
+              sx={{
+                "html[data-theme='light'] &": { backgroundColor: "gray.50" },
+                "html[data-theme='light'] & input::placeholder": {
+                  color: "gray.500",
+                },
+                "html[data-theme='dark'] &": {
+                  backgroundColor: "whiteAlpha.50",
+                },
+              }}
+              borderRadius="3px"
+            >
+              <InputLeftElement
+                pointerEvents="none"
+                children={<SearchIcon color="teal.400" />}
+              />
+
+              <Input
+                variant="filled"
+                focusBorderColor="gray.700"
+                backgroundColor="gray.700"
+                size="md"
+                type="text"
+                placeholder="Search bookmark"
+                _placeholder={{ opacity: 1, color: "gray.400" }}
+                sx={{
+                  "&:hover, &:focus": {
+                    backgroundColor: "gray.700",
+                  },
+                }}
+              />
+            </InputGroup>
+          </ModalBody>
         </ModalContent>
       </Modal>
     </>
