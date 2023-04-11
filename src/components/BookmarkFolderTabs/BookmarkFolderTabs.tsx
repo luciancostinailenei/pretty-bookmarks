@@ -68,7 +68,8 @@ const BookmarkFolderTabs = () => {
 
           return { ...bookmark, type: "bookmark" };
         })
-        .sort((a, b) => { // folders to top
+        .sort((a, b) => {
+          // folders to top
           if (a.type === "folder" && b.type === "folder") return 0;
           if (a.type === "folder" && b.type === "bookmark") return -1;
 

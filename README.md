@@ -4,6 +4,7 @@ A pretty Google Chrome bookmark manager created with productivity with mind.
 
 ## Why use it
 
+- It's a more clean and usable alternative to chrome://bookmarks; Pin the extension and it's a one-click-open bookmark search and manager
 - Avoid bookmarks bar mess and limitations by having quick access to all your bookmarks in the same place
 - Avoid too many open tabs and don't loose your research while surfing the web
 - Easily categorize and manage items via folders

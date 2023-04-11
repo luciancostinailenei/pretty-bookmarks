@@ -26,7 +26,6 @@ const BookmarkList = ({
   const [bookmarkList, setBookmarkList] =
     useState<chrome.bookmarks.BookmarkTreeNode[]>(bookmarks);
 
-
   const removeBookmarkFromList = (bookmarkId: string) => {
     const filteredBookmarks = bookmarkList.filter((b) => b.id !== bookmarkId);
     setBookmarkList(filteredBookmarks);
