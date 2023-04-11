@@ -26,24 +26,6 @@ const BookmarkList = ({
   const [bookmarkList, setBookmarkList] =
     useState<chrome.bookmarks.BookmarkTreeNode[]>(bookmarks);
 
-  useEffect(() => {
-    const foldersToTop = bookmarks
-      .map((bookmark) => {
-        if (bookmark.children) {
-          return { ...bookmark, type: "folder" };
-        }
-
-        return { ...bookmark, type: "bookmark" };
-      })
-      .sort((a, b) => {
-        if (a.type === "folder" && b.type === "folder") return 0;
-        if (a.type === "folder" && b.type === "bookmark") return -1;
-
-        return 1;
-      });
-
-    setBookmarkList(foldersToTop);
-  }, [bookmarks]);
 
   const removeBookmarkFromList = (bookmarkId: string) => {
     const filteredBookmarks = bookmarkList.filter((b) => b.id !== bookmarkId);
@@ -52,7 +34,6 @@ const BookmarkList = ({
 
   const BookmarkListContent = () => {
     if (bookmarkList.length > 0) {
-      console.log(bookmarkList);
       return (
         <>
           {bookmarkList.map((bookmark) => {

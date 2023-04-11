@@ -58,8 +58,22 @@ const BookmarkFolderTabs = () => {
     let sortedBookmarks: chrome.bookmarks.BookmarkTreeNode[] = [];
 
     if (bookmarks.length) {
-      // @ts-ignore: Unreachable code error
-      sortedBookmarks = bookmarks.sort((a, b) => b.dateAdded - a.dateAdded);
+      sortedBookmarks = bookmarks
+        // @ts-ignore: Unreachable code error
+        .sort((a, b) => b.dateAdded - a.dateAdded)
+        .map((bookmark) => {
+          if (bookmark.children) {
+            return { ...bookmark, type: "folder" };
+          }
+
+          return { ...bookmark, type: "bookmark" };
+        })
+        .sort((a, b) => { // folders to top
+          if (a.type === "folder" && b.type === "folder") return 0;
+          if (a.type === "folder" && b.type === "bookmark") return -1;
+
+          return 1;
+        });
     }
 
     return sortedBookmarks;
