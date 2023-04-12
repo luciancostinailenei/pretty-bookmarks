@@ -31,6 +31,10 @@ const BookmarkList = ({
     setBookmarkList(filteredBookmarks);
   };
 
+  useEffect(() => {
+    setBookmarkList(bookmarks);
+  }, [bookmarks]);
+
   const BookmarkListContent = () => {
     if (bookmarkList.length > 0) {
       return (

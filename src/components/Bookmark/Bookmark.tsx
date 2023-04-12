@@ -1,10 +1,20 @@
 import { useState, useEffect } from "react";
-import { Button, Text, Image, useColorMode, Flex, Box } from "@chakra-ui/react";
+import {
+  Button,
+  Text,
+  Image,
+  useColorMode,
+  Flex,
+  Box,
+  Skeleton,
+} from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import cn from "classnames";
 
 import styles from "./Bookmark.module.css";
 import MoveToFolderMenu from "./MoveToFolderMenu";
+
+import { CacheStore } from "../../services";
 
 export enum BookmarkDisplayType {
   Bookmark = "BOOKMARK",
@@ -26,7 +36,14 @@ const Bookmark = ({
 }: BookmarkProps) => {
   const { colorMode } = useColorMode();
   const isDarkModeOn = colorMode === "dark";
-  const [referral, setReferral] = useState("");
+
+  const referralStateDefaultValue = {
+    isReferralFetched: false,
+    ...(CacheStore.isInCacheStore(`${id}-${title}`)
+      ? CacheStore.getFromCacheStore(`${id}-${title}`)
+      : {}),
+  };
+  const [referral, setReferral] = useState(referralStateDefaultValue);
 
   const removeBookmarkFromChromeAndList = async (bookmarkId: string) => {
     await chrome.bookmarks.remove(bookmarkId);
@@ -40,20 +57,29 @@ const Bookmark = ({
   useEffect(() => {
     const retrieveReferral = async () => {
       const storageKey = `${id}-${title}`;
-      const retrievedStorage = await chrome.storage.local.get([
-        `${id}-${title}`,
-      ]);
 
-      setReferral(retrievedStorage[storageKey]);
+      if (!referral.value) {
+        const retrievedStorage = await chrome.storage.local.get([
+          `${id}-${title}`,
+        ]);
+
+        const referralValue = retrievedStorage[storageKey];
+        const referalStateValue = {
+          isReferralFetched: true,
+          value: referralValue,
+        };
+        setReferral(referalStateValue);
+        CacheStore.addToCacheStore(storageKey, referalStateValue);
+      }
     };
 
     retrieveReferral();
-  }, [id, title]);
+  }, [id, title, referral]);
 
   const slicedReferral =
-    referral && referral.length > 160
-      ? referral.slice(0, 159).concat("...")
-      : referral;
+    referral.value && referral.value.length > 160
+      ? referral.value.slice(0, 159).concat("...")
+      : referral.value;
 
   return (
     <div
@@ -89,18 +115,22 @@ const Bookmark = ({
           </Flex>
         )}
 
-        {referral && (
-          <Box>
-            <span className={styles["bookmark__info-item"]}>
-              What brought me here:
-            </span>
-            <span className={styles["bookmark__info-value"]}>
-              <a href={referral} rel="noreferrer" target="_blank">
-                {slicedReferral}
-              </a>
-            </span>
-          </Box>
-        )}
+        <Box>
+          {referral.value && (
+            <>
+              <span className={styles["bookmark__info-item"]}>
+                What brought me here:
+              </span>
+              <span className={styles["bookmark__info-value"]}>
+                <a href={referral.value} rel="noreferrer" target="_blank">
+                  {slicedReferral}
+                </a>
+              </span>
+            </>
+          )}
+
+          {!referral.isReferralFetched && <Skeleton height="20px" />}
+        </Box>
 
         <Text display="inline" color="blue.400" mt="10px" fontSize="sm">
           <a href={url} rel="noreferrer" target="_blank">
