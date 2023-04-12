@@ -30,7 +30,7 @@ const Subfolder = ({ title, id, hasBookmarks, children }: SubfolderProps) => {
   };
 
   return (
-    <Accordion allowToggle>
+    <Accordion reduceMotion allowToggle>
       <AccordionItem>
         <h2>
           <AccordionButton
