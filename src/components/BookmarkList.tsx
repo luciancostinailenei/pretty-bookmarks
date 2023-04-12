@@ -32,7 +32,7 @@ const BookmarkList = ({
   };
 
   useEffect(() => {
-    setBookmarkList(bookmarks); // fix this by removing local state and attach prop directly to list
+    setBookmarkList(bookmarks);
   }, [bookmarks]);
 
   const BookmarkListContent = () => {
