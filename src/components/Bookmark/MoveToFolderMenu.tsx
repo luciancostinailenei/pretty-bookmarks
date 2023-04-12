@@ -31,8 +31,6 @@ const MoveToFolderMenu = ({
     await refreshFolders();
   };
 
-  const MenuItemTreeListComponent = memo(MenuItemTreeList);
-
   return (
     <Menu isLazy>
       <MenuButton
@@ -46,8 +44,7 @@ const MoveToFolderMenu = ({
       </MenuButton>
       <MenuList>
         <MenuGroup title="Move to folder:">
-          <MenuItemTreeListComponent
-            key={`menu-${bookmarkId}`}
+          <MenuItemTreeList
             folders={folders}
             bookmarkId={bookmarkId}
             onChooseFolder={moveBookmarkAndRefresh}
@@ -59,4 +56,4 @@ const MoveToFolderMenu = ({
   );
 };
 
-export default MoveToFolderMenu;
+export default memo(MoveToFolderMenu);

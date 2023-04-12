@@ -16,9 +16,8 @@ const MenuItemTreeList = ({
 }: MenuItemTreeListProps) => (
   <>
     {folders.map(({ title, id: folderId, children }) => (
-      <>
+      <div key={`menu-${title}-${bookmarkId}`}>
         <MenuItem
-          key={`menu-${title}-${bookmarkId}`}
           onClick={() => onChooseFolder(bookmarkId, folderId)}
           pl={`${20 * startLevel}px`}
         >
@@ -36,7 +35,7 @@ const MenuItemTreeList = ({
               startLevel={startLevel + 1}
             />
           )}
-      </>
+      </div>
     ))}
   </>
 );
