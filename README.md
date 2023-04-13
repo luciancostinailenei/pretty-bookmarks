@@ -12,7 +12,7 @@ A pretty Google Chrome bookmark manager created with productivity with mind.
 
 ## Features
 
-- Quick Seach - Provide a query based on which bookmarks with matching title or URL are returned
+- Quick Search - Provide a query based on which bookmarks with matching title or URL are returned
 - Main bookmark folders (Bookmarks bar, Mobile bookmarks, Other bookmarks) are split in tabs for easy access
 - Allows quick creation of level one subfolders in each of the above mentioned global folders to serve as categories (deeper levels are not purposely not allowed to avoid mess)
 - Subfolders are presented on top of bookmarks lists
