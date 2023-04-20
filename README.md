@@ -25,7 +25,7 @@ A pretty Google Chrome bookmark manager created with productivity with mind.
 
 ## Installing
 
-- [Download Google Chrome extension](https://www.google.com) - WIP, extension is in pending approval
+- [Install extension for Chrome Web Store](https://chrome.google.com/webstore/detail/pretty-bookmarks/lohepadcegakjkmgjignaejcgkaceobn)
 
 ## Contribute
 
