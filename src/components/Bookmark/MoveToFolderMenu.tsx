@@ -32,7 +32,7 @@ const MoveToFolderMenu = ({
   };
 
   return (
-    <Menu isLazy>
+    <Menu isLazy strategy="fixed">
       <MenuButton
         as={Button}
         colorScheme="teal"
@@ -42,7 +42,15 @@ const MoveToFolderMenu = ({
       >
         <ExternalLinkIcon mt="-1" boxSize={4} />
       </MenuButton>
-      <MenuList>
+      <MenuList
+        sx={{
+          "&": {
+            maxHeight: "200px",
+            overflowX: "hidden",
+            overflowY: "scroll",
+          },
+        }}
+      >
         <MenuGroup title="Move to folder:">
           <MenuItemTreeList
             folders={folders}
