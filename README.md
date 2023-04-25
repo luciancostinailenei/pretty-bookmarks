@@ -29,6 +29,12 @@ A pretty Google Chrome bookmark manager created with productivity with mind.
 
 ## Contribute
 
+### Tech stack
+
+- [React](https://react.dev/)
+- [Chakra UI](https://chakra-ui.com/)
+- [Google Chrome API](https://developer.chrome.com/docs/extensions/reference/)
+
 ### Local development
 
 1. Make sure you have `node` and `yarn` ready
