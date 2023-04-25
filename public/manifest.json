@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Pretty Bookmarks",
   "description": "A pretty Google Chrome bookmark manager created with productivity with mind.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "action": {
     "default_popup": "index.html",
     "default_icon": "pblogo-32.png"
