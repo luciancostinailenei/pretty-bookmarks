@@ -54,7 +54,3 @@
   cursor: pointer;
   transition: all .5s ease-in-out;
 }
-.icon-style:hover{
-  animation: none;
-  background: #fff;
-}
