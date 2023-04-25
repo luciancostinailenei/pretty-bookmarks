@@ -1,4 +1,4 @@
-import { memo, useContext } from "react";
+import { memo, useContext, useRef } from "react";
 import {
   Button,
   Menu,
@@ -21,6 +21,7 @@ const MoveToFolderMenu = ({
   bookmarkId,
 }: MoveToFolderMenuProps) => {
   const { folders, refreshFolders } = useContext(BookmarkFoldersContext);
+  const menuGroupRef = useRef<HTMLDivElement>(null);
 
   const moveBookmarkAndRefresh = async (
     bookmarkId: string,
@@ -32,7 +33,12 @@ const MoveToFolderMenu = ({
   };
 
   return (
-    <Menu isLazy strategy="fixed">
+    <Menu
+      isLazy
+      strategy="fixed"
+      placement="left-start"
+      initialFocusRef={menuGroupRef}
+    >
       <MenuButton
         as={Button}
         colorScheme="teal"
@@ -51,7 +57,7 @@ const MoveToFolderMenu = ({
           },
         }}
       >
-        <MenuGroup title="Move to folder:">
+        <MenuGroup ref={menuGroupRef} title="Move to folder:">
           <MenuItemTreeList
             folders={folders}
             bookmarkId={bookmarkId}
