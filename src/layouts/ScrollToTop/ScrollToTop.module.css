@@ -1,0 +1,28 @@
+.top-to-btn{
+  position: relative;
+}
+
+.icon-position{
+  position: fixed;
+  bottom: 40px;
+  right: 25px;
+  z-index: 20;
+}
+
+.icon-style{
+  border: 2px solid #fff;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  transition: all .5s ease-in-out;
+}
+
+.icon--dark {
+  background-image: linear-gradient(40deg, #43c8c2, #8ef1e1);
+}
+  
+.icon--light {
+  background-image: linear-gradient(40deg, #2c7a7b, #31c4ab);
+}
+  
+  

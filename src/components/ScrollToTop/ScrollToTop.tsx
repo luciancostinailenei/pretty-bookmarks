@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { FaAngleUp } from 'react-icons/fa';
-import { useColorMode } from "@chakra-ui/react";
+import { useColorMode, Icon } from "@chakra-ui/react";
 import cn from "classnames";
 
-import '../../App.css';
-import styles from "../../layouts/Main/Main.module.css";
+import styles from "../../layouts/ScrollToTop/ScrollToTop.module.css";
+import { ChevronUpIcon } from "@chakra-ui/icons";
 
 const ScrollToTop = () => {
     const { colorMode } = useColorMode();
+
     const [showTopBtn, setShowTopBtn] = useState(false);
     useEffect(() => {
         window.addEventListener("scroll", () => {
@@ -25,17 +25,17 @@ const ScrollToTop = () => {
         });
     };
     return (
-        <div className="top-to-btm">
-            {" "}
+        <div className="top-to-btn">
             {showTopBtn && (
-                <FaAngleUp
-                    // className="icon-position icon-style"
+                <Icon as={ChevronUpIcon} 
+                    w={50} 
+                    h={50}
                     className={cn(
                         styles["icon-position"],
                         styles["icon-style"],
                         colorMode === "dark"
-                          ? styles["main__heading--dark"]
-                          : styles["main__heading--light"],
+                          ? styles["icon--dark"]
+                          : styles["icon--light"],
                       )}
                     onClick={goToTop}
                 />
