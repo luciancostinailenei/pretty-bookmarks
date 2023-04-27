@@ -18,12 +18,14 @@ const ScrollToTop = () => {
             }
         });
     }, []);
+
     const goToTop = () => {
         window.scrollTo({
             top: 0,
             behavior: "smooth",
         });
     };
+
     return (
         <div className="top-to-btn">
             {showTopBtn && (
@@ -31,15 +33,14 @@ const ScrollToTop = () => {
                     w={50} 
                     h={50}
                     className={cn(
-                        styles["icon-position"],
-                        styles["icon-style"],
+                        styles["icon"],
                         colorMode === "dark"
                           ? styles["icon--dark"]
                           : styles["icon--light"],
                       )}
                     onClick={goToTop}
                 />
-            )}{" "}
+            )}
         </div>
     );
 };
