@@ -22,12 +22,12 @@ const ScrollToTop = () => {
   const goToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: "auto",
     });
   };
 
   return (
-    <div className="top-to-btn">
+    <div className="top-to-btn" onClick={goToTop}>
       {showTopBtn && (
         <Icon
           color="white"
@@ -38,7 +38,6 @@ const ScrollToTop = () => {
             styles["icon"],
             colorMode === "dark" ? styles["icon--dark"] : styles["icon--light"]
           )}
-          onClick={goToTop}
         />
       )}
     </div>
