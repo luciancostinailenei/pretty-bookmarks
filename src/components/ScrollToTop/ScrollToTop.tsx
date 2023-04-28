@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useColorMode, Icon } from "@chakra-ui/react";
+import { ChevronUpIcon } from "@chakra-ui/icons";
 import cn from "classnames";
 
 import styles from "../../layouts/ScrollToTop/ScrollToTop.module.css";
-import { ChevronUpIcon } from "@chakra-ui/icons";
 
 const ScrollToTop = () => {
   const { colorMode } = useColorMode();
-
   const [showTopBtn, setShowTopBtn] = useState(false);
+
   useEffect(() => {
     window.addEventListener("scroll", () => {
       if (window.scrollY > 100) {
@@ -43,4 +43,5 @@ const ScrollToTop = () => {
     </div>
   );
 };
+
 export default ScrollToTop;
