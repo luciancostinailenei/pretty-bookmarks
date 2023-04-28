@@ -13,6 +13,7 @@ import { StarIcon } from "@chakra-ui/icons";
 import BookmarkList, { BookmarkListType } from "../BookmarkList";
 import BookmarkFoldersContext from "./BookmarkFoldersContext";
 import CreateFolder from "./CreateFolder";
+import ScrollToTop from "../ScrollToTop/ScrollToTop";
 
 const fetchBookmarksFoldersAndSortByItemsCount = async (): Promise<
   chrome.bookmarks.BookmarkTreeNode[]
@@ -149,6 +150,7 @@ const BookmarkFolderTabs = () => {
       }}
     >
       <BookmarksContent />
+      <ScrollToTop />
     </BookmarkFoldersContext.Provider>
   );
 };
