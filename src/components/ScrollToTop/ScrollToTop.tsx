@@ -12,7 +12,7 @@ const ScrollToTop = () => {
   useEffect(() => {
     window.addEventListener("scroll", () => {
       const SHOW_AFTER_SCROLL_OFFSET = 100;
-      
+
       if (window.scrollY > SHOW_AFTER_SCROLL_OFFSET) {
         setShowTopBtn(true);
       } else {

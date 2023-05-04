@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, PropsWithChildren } from "react";
 import {
   Text,
   Stack,
@@ -14,12 +14,11 @@ import { StarIcon, DeleteIcon } from "@chakra-ui/icons";
 
 import { BookmarkFoldersContext } from "./";
 
-type SubfolderProps = {
+type SubfolderProps = PropsWithChildren<{
   title: string;
   id: string;
   hasBookmarks: boolean;
-  children: React.ReactNode;
-};
+}>;
 
 const Subfolder = ({ title, id, hasBookmarks, children }: SubfolderProps) => {
   const { refreshFolders } = useContext(BookmarkFoldersContext);

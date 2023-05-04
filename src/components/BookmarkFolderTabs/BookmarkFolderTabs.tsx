@@ -43,7 +43,7 @@ const BookmarkFolderTabs = () => {
   const [folders, setFolders] = useState<chrome.bookmarks.BookmarkTreeNode[]>(
     []
   );
-  const [tabIndex, setTabIndex] = useState<number>(0);
+  const [tabIndex, setTabIndex] = useState(0);
 
   const handleTabsChange = (index: number) => {
     setTabIndex(index);

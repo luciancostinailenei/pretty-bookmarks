@@ -19,9 +19,9 @@ const CreateFolder = ({ parentId }: { parentId: string }) => {
   const [inputState, setInputState] = useState<InputStateValues>(
     InputStateValues.Hidden
   );
-  const [inputValue, setInputValue] = useState<string>("");
-  const [isInputValid, setInputValidity] = useState<boolean>(true);
-  const [error, setError] = useState<string>("");
+  const [inputValue, setInputValue] = useState("");
+  const [isInputValid, setInputValidity] = useState(true);
+  const [error, setError] = useState("");
 
   const { refreshFolders } = useContext(BookmarkFoldersContext);
 
