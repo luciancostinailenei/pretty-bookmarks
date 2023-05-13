@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 
-import { BookmarkFoldersContext } from "../";
+import { BookmarkFoldersContext } from "../../..";
 import MenuItemTreeList from "./MenuItemTreeList";
 
 interface MoveToFolderMenuProps {

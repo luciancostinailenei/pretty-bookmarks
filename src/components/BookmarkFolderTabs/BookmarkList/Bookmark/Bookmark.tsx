@@ -14,7 +14,7 @@ import cn from "classnames";
 import styles from "./Bookmark.module.css";
 import MoveToFolderMenu from "./MoveToFolderMenu";
 
-import { CacheStore } from "../../services";
+import { CacheStore } from "../../../../services";
 
 export enum BookmarkDisplayType {
   Bookmark = "BOOKMARK",

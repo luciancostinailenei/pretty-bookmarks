@@ -1,10 +1,10 @@
 import { Text, Stack, CheckboxGroup } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 
-import { Bookmark, BookmarkDisplayType } from "./";
+import { Bookmark, BookmarkDisplayType } from "../..";
 import Subfolder from "./Subfolder";
 
-export enum BookmarkListType {
+export const enum BookmarkListType {
   List = "LIST",
   Subfolder = "SUBFOLDER",
   SearchResults = "SEARCHRESULTS",

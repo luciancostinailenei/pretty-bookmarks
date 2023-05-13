@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 
-import BookmarkList, { BookmarkListType } from "../BookmarkList";
+import BookmarkList, { BookmarkListType } from "./BookmarkList/BookmarkList";
 import BookmarkFoldersContext from "./BookmarkFoldersContext";
 import CreateFolder from "./CreateFolder";
 import ScrollToTop from "../ScrollToTop/ScrollToTop";
@@ -20,14 +20,6 @@ const fetchBookmarksFoldersAndSortByItemsCount = async (): Promise<
 > => {
   const bookmarksTree = await chrome.bookmarks.getTree();
   const bookmarksFolders = bookmarksTree[0].children || [];
-
-  // bookmarksFolders.sort((a, b) => {
-  //   if (!a.children) return -1;
-  //   if (!b.children) return 1;
-  //   if (!a.children && !b.children) return 0;
-
-  //   return b.children?.length - a.children?.length;
-  // });
 
   return bookmarksFolders;
 };
@@ -53,32 +45,34 @@ const BookmarkFolderTabs = () => {
     fetchFoldersAndAddToState(setFolders);
   }, []);
 
-  const getSortedBookmarksInsideFolder = (folderId: string) => {
+  const getSortedBookmarksAndSubfoldersInsideFolder = (
+    folderId: string
+  ): chrome.bookmarks.BookmarkTreeNode[] => {
     const folder = folders.find((f) => f.id === folderId);
     const bookmarks = folder?.children || [];
-    let sortedBookmarks: chrome.bookmarks.BookmarkTreeNode[] = [];
 
-    if (bookmarks.length) {
-      sortedBookmarks = bookmarks
-        // @ts-ignore: Unreachable code error
-        .sort((a, b) => b.dateAdded - a.dateAdded)
-        .map((bookmark) => {
-          if (bookmark.children) {
-            return { ...bookmark, type: "folder" };
-          }
-
-          return { ...bookmark, type: "bookmark" };
-        })
-        .sort((a, b) => {
-          // folders to top
-          if (a.type === "folder" && b.type === "folder") return 0;
-          if (a.type === "folder" && b.type === "bookmark") return -1;
-
-          return 1;
-        });
+    if (!bookmarks.length) {
+      return [];
     }
 
-    return sortedBookmarks;
+    const foldersAndBookmarks = bookmarks.map((bookmark) => {
+      if (bookmark.children) {
+        return { ...bookmark, type: "folder" };
+      }
+
+      return { ...bookmark, type: "bookmark" };
+    });
+
+    const alphabeticallySortedFolders = foldersAndBookmarks
+      .filter((f) => f.type === "folder")
+      .sort((f1, f2) => f1.title.localeCompare(f2.title));
+
+    const dateSortedBookmarks = foldersAndBookmarks
+      .filter((f) => f.type === "bookmark" && f.dateAdded)
+      .sort((f1, f2) => f1.title.localeCompare(f2.title))
+      .sort((a, b) => a.dateAdded! - b.dateAdded!);
+
+    return [...alphabeticallySortedFolders, ...dateSortedBookmarks];
   };
 
   const getFolderBookmarksCount = (folderId: string) => {
@@ -100,31 +94,29 @@ const BookmarkFolderTabs = () => {
           index={tabIndex}
           onChange={handleTabsChange}
         >
-          <>
-            <TabList w="max-content">
-              {folders.map(({ title, id }) => (
-                <Tab key={id}>
-                  <StarIcon mr="5px" />
-                  {`${title} (${getFolderBookmarksCount(id)})`}
-                </Tab>
-              ))}
-            </TabList>
+          <TabList w="max-content">
+            {folders.map(({ title, id }) => (
+              <Tab key={id}>
+                <StarIcon mr="5px" />
+                {`${title} (${getFolderBookmarksCount(id)})`}
+              </Tab>
+            ))}
+          </TabList>
 
-            <TabPanels>
-              {folders.map(({ id, title }) => (
-                <TabPanel p="5px" key={`tab-${id}`}>
-                  <CreateFolder parentId={id} />
+          <TabPanels>
+            {folders.map(({ id, title }) => (
+              <TabPanel p="5px" key={`tab-${id}`}>
+                <CreateFolder parentId={id} />
 
-                  <BookmarkList
-                    type={BookmarkListType.List}
-                    title={title}
-                    bookmarks={getSortedBookmarksInsideFolder(id)}
-                    folderId={id}
-                  />
-                </TabPanel>
-              ))}
-            </TabPanels>
-          </>
+                <BookmarkList
+                  type={BookmarkListType.List}
+                  title={title}
+                  bookmarks={getSortedBookmarksAndSubfoldersInsideFolder(id)}
+                  folderId={id}
+                />
+              </TabPanel>
+            ))}
+          </TabPanels>
         </Tabs>
       );
     }
@@ -150,6 +142,7 @@ const BookmarkFolderTabs = () => {
       }}
     >
       <BookmarksContent />
+
       <ScrollToTop />
     </BookmarkFoldersContext.Provider>
   );

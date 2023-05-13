@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { StarIcon, DeleteIcon } from "@chakra-ui/icons";
 
-import { BookmarkFoldersContext } from "./";
+import { BookmarkFoldersContext } from "../..";
 
 type SubfolderProps = PropsWithChildren<{
   title: string;

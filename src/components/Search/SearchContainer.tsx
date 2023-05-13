@@ -14,7 +14,7 @@ import {
 import { SearchIcon } from "@chakra-ui/icons";
 
 import SearchTriggerInput from "./SearchTriggerInput";
-import BookmarkList, { BookmarkListType } from "../BookmarkList";
+import BookmarkList, { BookmarkListType } from "../BookmarkFolderTabs/BookmarkList/BookmarkList";
 
 const SearchContainer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
