@@ -10,7 +10,7 @@ import { AddIcon, CheckIcon } from "@chakra-ui/icons";
 
 import BookmarkFoldersContext from "./BookmarkFoldersContext";
 
-enum InputStateValues {
+const enum InputStateValues {
   Hidden,
   Visible,
 }

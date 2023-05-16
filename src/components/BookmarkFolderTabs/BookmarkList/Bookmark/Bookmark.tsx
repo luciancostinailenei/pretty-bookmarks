@@ -16,7 +16,7 @@ import MoveToFolderMenu from "./MoveToFolderMenu";
 
 import { CacheStore } from "../../../../services";
 
-export enum BookmarkDisplayType {
+export const enum BookmarkDisplayType {
   Bookmark = "BOOKMARK",
   SearchResult = "SEARCHRESULT",
 }
